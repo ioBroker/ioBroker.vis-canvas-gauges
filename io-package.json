@@ -1,0 +1,42 @@
+{
+    "common": {
+        "name":                     "vis-canvas-gauges",
+        "version": "0.1.0",
+		"news": {
+			"0.1.0": {
+				"en": "initial commit",
+				"de": "initial commit",
+				"ru": "initial commit"
+			}
+        },
+        "title":                    "ioBroker Visualisation - canvas-gauges style Widgets",
+        "desc": {
+            "en":                   "Canvas gauges for ioBroker.vis",
+            "de":                   "Canvas gauges für ioBroker.vis",
+            "ru":                   "Canvas gauges для ioBroker.vis"
+        },
+        "platform":                 "Javascript/Node.js",
+        "loglevel":                 "info",
+        "icon":                     "vis-canvas-gauges.png",
+        "enabled":                  true,
+        "mode":                     "once",
+        "extIcon":                  "https://raw.githubusercontent.com/ioBroker/ioBroker.vis-canvas-gauges/master/admin/vis-canvas-gauges.png",
+        "keywords":                 ["canvas-gauges", "vis", "GUI", "graphical", "scada"],
+        "readme":                   "https://github.com/ioBroker/ioBroker.vis-canvas-gauges/blob/master/README.md",
+        "authors": [
+            "bluefox <dogafox@gmail.com>"
+        ],
+        "localLink":                "%web_protocol%://%ip%:%web_port%/vis/edit.html",
+        "license":                  "MIT",
+        "dependencies":             ["vis"],
+        "onlyWWW":                  true,
+        "singleton":                true,
+        "type":                     "vis",
+		"restartAdapters":          ["vis"],
+		"noConfig":                 true
+    },
+    "native": {
+    },
+    "instanceObjects": [
+    ]
+}

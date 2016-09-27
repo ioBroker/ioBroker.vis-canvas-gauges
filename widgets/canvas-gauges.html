@@ -1,0 +1,513 @@
+<!--
+    ioBroker.vis-canvas-gauges
+
+    version: "0.1.0"
+
+    Copyright 2016 bluefox<dogafox@gmail.com>
+
+-->
+<script type="text/javascript" src="widgets/canvas-gauges/js/gauge.min.js"></script>
+
+<script language="javascript">
+    'use strict';
+    // Add words for bars
+    if (vis.editMode) {
+        $.extend(systemDictionary, {
+            "min_value": {"en": "Min value", "de": "Min Wert", "ru": "Мин. значение"},
+            "max_value": {"en": "Max value", "de": "Max Wert", "ru": "Макс. значение"},
+            "max_value_oid": {"en": "Max value ID", "de": "Max Wert Objekt", "ru": "ID макс. значения"},
+            "width": {"en": "Widget width", "de": "Widgetbreite", "ru": "Ширина элемента"},
+            "control": {"en": "Control", "de": "Steuerung", "ru": "Контроль"},
+            "factor": {"en": "Multiply factor", "de": "Wert multiplizieren", "ru": "Фактор-множитель"},
+            "value_offset": {"en": "Offset factor", "de": "Offsetwert", "ru": "Фактор сдвига"},
+            "color": {"en": "Color", "de": "Farbe", "ru": "Цвет"},
+            "show_scale": {"en": "Show scale", "de": "Zeige Skala", "ru": "Показать шкалу"},
+            "labels_color": {"en": "Labels color", "de": "Labelfarbe", "ru": "Цвет подписей шкалы"},
+            "labels_font": {"en": "Labels font", "de": "Labelfont", "ru": "Шрифт подписей шкалы"},
+            "labels_size": {"en": "Labels font size", "de": "Labelsfontgröße", "ru": "Размер подписей шкалы"},
+            "title": {"en": "Title", "de": "Titel", "ru": "Подпись"},
+            "title_side": {"en": "Side title", "de": "Seitentitel", "ru": "Вертикальная подпись"},
+            "title_side_font": {"en": "Side title font", "de": "Seitentitelfont", "ru": "Шрифт вертикальной подписи"},
+            "title_side_size": {
+                "en": "Side title font size",
+                "de": "Seitentitelfontgröße",
+                "ru": "Размер вертикальной подписи"
+            },
+            "show_shadow": {"en": "Show shadow", "de": "Zeige Schatten", "ru": "Показать тень"},
+            "ticksize": {"en": "Tick length", "de": "Zeichenlänge", "ru": "Длина штриха"},
+            "units_pre": {"en": "Units pre", "de": "Einheitsprefix", "ru": "Префикс"},
+            "units_post": {"en": "Units post", "de": "Einheitspostfix", "ru": "Суффикс"},
+            "scale_decimals": {
+                "en": "Scale decimals",
+                "de": "Nachkommazeichen bei Skala",
+                "ru": "Чисел после запятой шкалы"
+            },
+            "show_value": {"en": "Show value", "de": "Zeige Wert", "ru": "Показать значение"},
+            "value_decimals": {
+                "en": "Value decimals",
+                "de": "Nachkommazeichen beim Wert",
+                "ru": "Чисел после запятой значения"
+            },
+            "labels_count": {"en": "Labels count", "de": "Anzahl von Labels", "ru": "Кол-во подписей в шкале"},
+            "animate": {"en": "Show animation", "de": "Zeige Animation", "ru": "Плавное изменение"},
+            // Gauge
+            "oid_2": {"en": "Second object ID", "de": "Zweite ObjektID", "ru": "ID второго объекта"},
+            "oid_3": {"en": "Third object ID", "de": "Dritte ObjektID", "ru": "ID третьего объекта"},
+            "a_start": {"en": "Scale start", "de": "Anfang von Skala", "ru": "Начало шкалы"},
+            "a_end": {"en": "Scale end", "de": "Ende von Skala", "ru": "Конец шкалы"},
+            "ticks_big_color": {"en": "Big tick color", "de": "Farbe von langen Ticks", "ru": "Цвет длинных штрихов"},
+            "ticks_small_color": {
+                "en": "Small tick color",
+                "de": "Farbe von kurzen Ticks",
+                "ru": "Цвет коротких штрихов"
+            },
+            "border_outer_color": {"en": "Outer border color", "de": "Aussenrand-Farbe", "ru": "Цвет внешней каймы"},
+            "border_inner_color": {"en": "Inner border color", "de": "Innenrabd-Farbe", "ru": "Цвет внутренней каймы"},
+            "back_color": {"en": "Background color", "de": "Hintergrund-Farbe", "ru": "Цвет фона"},
+            "background_gradient": {
+                "en": "Gradient background",
+                "de": "Hintergrund mit Gradient",
+                "ru": "Фон с градиентом"
+            },
+            "border_outline_color": {"en": "Outline border color", "de": "Abgrenzungrand-Farbe", "ru": "Цвет границы"},
+            "needle_colors": {"en": "Needle colors", "de": "Zeigerfarben", "ru": "Цвет стрелки"},
+            "needle_type": {"en": "Needle type", "de": "Zeigertyp", "ru": "Тип стрелки"},
+            "needle_tail": {"en": "Show needle tail", "de": "Zeige Zeigerschwanz", "ru": "Показать хвостик стрелки"},
+            "needle_size": {"en": "Needle size", "de": "Zeigergröße", "ru": "Размер стрелки"},
+            "centerpin_radius": {
+                "en": "Center radius",
+                "de": "Radius von Mittelpunkt",
+                "ru": "Радиус центральной точки"
+            },
+            "centerpin_color": {"en": "Center color", "de": "Farbe von Mittelpunkt", "ru": "Цвет центральной точки"},
+            "title_color": {"en": "Top title color", "de": "Obere Beschriftungsfarbe", "ru": "Цвет верхней подписи"},
+            "title_font": {"en": "Top title font", "de": "Oberer Beschriftungsfont", "ru": "Шрифт верхней подписи"},
+            "title_size": {"en": "Top title size", "de": "Obere Beschriftungsgröße", "ru": "Размер верхней подписи"},
+            "title_pos": {
+                "en": "Top title position",
+                "de": "Obere Beschriftungs- Position",
+                "ru": "Положение верхней подписи"
+            },
+            "title_bottom": {"en": "Bottom title", "de": "Untere Beschriftung", "ru": "Нижняя подпись"},
+            "title_bottom_color": {
+                "en": "Bottom title color",
+                "de": "Untere Beschriftungsfarbe",
+                "ru": "Цвет нижней подписи"
+            },
+            "title_bottom_font": {
+                "en": "Bottom title font",
+                "de": "Unterer Beschriftungfont",
+                "ru": "Шрифт нижней подписи"
+            },
+            "title_bottom_size": {
+                "en": "Bottom title size",
+                "de": "Untere Beschriftungsgröße",
+                "ru": "Размер верхней подписи"
+            },
+            "title_bottom_pos": {
+                "en": "Bottom title position",
+                "de": "Untere Beschriftungs- Position",
+                "ru": "Положение нижней подписи"
+            },
+            "labels_centered": {
+                "en": "Centered labels",
+                "de": "Labels zentriert",
+                "ru": "Подписи шкалы ближе к границе"
+            },
+            "labels_offset": {"en": "Labels offset", "de": "Offsetlables", "ru": "Сдвиг подписей шкалы"},
+            "red_start": {"en": "End of third sector", "de": "Ende von dritten Sektor", "ru": "Конец третьего сектора"},
+            "red_color": {
+                "en": "Color of third sector",
+                "de": "Farbe von dritten Sektor",
+                "ru": "Цвет третьего сектора"
+            },
+            "yellow_color": {
+                "en": "Color of second sector",
+                "de": "Farbe von zweten Sektor",
+                "ru": "Цвет второго сектора"
+            },
+            "green_color": {
+                "en": "Color of first sector",
+                "de": "Farbe von ersten Sektor",
+                "ru": "Цвет первого сектора"
+            },
+            "green_end": {"en": "End of first sector", "de": "Ende von ersten Sektor", "ru": "Конец первого сектора"},
+            "padding_left": {"en": "Padding left", "de": "Abstand links", "ru": "Отступ слева"},
+            "padding_right": {"en": "Padding right", "de": "Abstand rechts", "ru": "Отступ справа"},
+            "animate_tooltip": {
+                "en": "Slow changes of value",
+                "de": "Langsame Wertänderung",
+                "ru": "Анимированное изменение значения"
+            },
+            "Arial": {"en": "Arial", "de": "Arial", "ru": "Arial"},
+            "Times": {"en": "Times", "de": "Times", "ru": "Times"},
+            "Andale Mono": {"en": "Andale Mono", "de": "Andale Mono", "ru": "Andale Mono"},
+            "Comic Sans": {"en": "Comic Sans", "de": "Comic Sans", "ru": "Comic Sans"},
+            "Impact": {"en": "Impact", "de": "Impact", "ru": "Impact"},
+            "group_scale": {"en": "Scale", "de": "Skala", "ru": "Шкала"},
+            "group_title": {"en": "Title", "de": "Beschriftung", "ru": "Подпись"},
+            "group_advanced": {"en": "Advanced", "de": "Erweitert", "ru": "Дополнительно"},
+            "group_background": {"en": "Background", "de": "Hintergrund", "ru": "Фон"},
+            "group_labels": {"en": "Labels", "de": "Aufschrift", "ru": "Надписи"},
+            "group_sectors": {"en": "Sectors", "de": "Sektoren", "ru": "Сектора"},
+            "line_color": {"en": "Line color", "de": "Liniefarbe", "ru": "Цвет линии"},
+            "line_thick": {"en": "Line thickness", "de": "Linienbreite", "ru": "Толщина линии"},
+            "update_interval": {
+                "en": "Update interval(ms)",
+                "de": "Aktualisierungs- Intervall(ms)",
+                "ru": "Обновление(мс)"
+            },
+            "update_interval_tooltip": {
+                "en": "How offten the new point will be painted on graphics.\x0AMake it smaller to see the changes.",
+                "de": "Wie oft wird neuen Punkt gemalt.\x0AMach es kleiner um die Änderungen zu sehen.",
+                "ru": "Как часто рисуется новая точка на графике\x0AНапиши маленькое значение, что бы понять, как работает график."
+            },
+            "points_count": {
+                "en": "Points number on X",
+                "de": "Punktenanzahl über X",
+                "ru": "Количество точек в графике по X"
+            },
+            "title_x": {"en": "Title for x axis", "de": "Beschriftung X-Achse", "ru": "Подпись шкалы X"},
+            "title_y": {"en": "Title for y axis", "de": "Beschriftung Y-Achse", "ru": "Подпись шкалы Y"},
+            "num_hlines": {
+                "en": "Horizontal lines number",
+                "de": "Anzahl von horizontalen Linien",
+                "ru": "Кол-во горизонтальных линий"
+            },
+            "spline": {"en": "Spline smoothing", "de": "Splineglättung", "ru": "Сглаживание сплайном"},
+            "filled": {"en": "Filled graphics", "de": "Gefüllte Grafik", "ru": "Закрашеный график"},
+            "group_oid_show": {
+                "en": "Show lines depends on",
+                "de": "Zeige Linien abhängig von",
+                "ru": "Показать линии в зависимости от"
+            },
+            "oid_show": {
+                "en": "Show line depends on",
+                "de": "Zeige Linie abhängig von",
+                "ru": "Показать линию в зависимости от"
+            },
+            "triangle": {"en": "Triangle form", "de": "Dreieckform", "ru": "Треугольной формы"},
+            "line": {"en": "Line", "de": "Linie", "ru": "Линия"},
+            "group_settings": {"en": "Settings", "de": "Einstellungen", "ru": "Настройки"},
+            "filled_color": {"en": "Color of the bar's bottom", "de": "Barfarbe unten", "ru": "Цвет графика снизу"},
+            "empty_color": {"en": "Color of the bar top", "de": "Barfarbe oben", "ru": "Цвет графика сверху"},
+            "label_color": {"en": "Labels color", "de": "Beschriftungs- Farbe", "ru": "Цвет подписей"},
+            "legend": {"en": "Show legend", "de": "Zeige Legende", "ru": "Показать легенду"},
+            "filled_text": {
+                "en": "Legend for filled value",
+                "de": "Legende für den Wert",
+                "ru": "Легенда для значения"
+            },
+            "empty_text": {
+                "en": "Legend for non-filled value",
+                "de": "Legende für den Gegenwert",
+                "ru": "Легенда для пустого значения"
+            },
+            "labels_above": {
+                "en": "Show max value at top",
+                "de": "Zeige maximales Wert oben",
+                "ru": "Показать максимальное значение"
+            },
+            "label_size": {"en": "Label's size", "de": "Beschriftungs- größe", "ru": "Размер подписей"},
+            "labels_above_angle": {
+                "en": "Max value at top with angle",
+                "de": "Zeige maximales Wert oben diagonal",
+                "ru": "Максимальное значение под углом"
+            },
+            "decimals": {"en": "Digits after comma", "de": "Nach Kommazahlen", "ru": "Чисел после запятой"},
+            "gutter_left": {"en": "Gutter left", "de": "Abstand links", "ru": "Отступ слева"},
+            "horz_margin": {"en": "Horizontal margin", "de": "Horizontaler Abstand", "ru": "Горизонтальный отступ"},
+            "bar_labels_color": {"en": "Bar value's color", "de": "Bar-Wert-Farbe", "ru": "Цвет значения"},
+            "bar_labels_bold": {"en": "Bar value's bold font", "de": "Bar-Wert-Dick", "ru": "Жирный шрифт значения"},
+            "bar_labels_center": {
+                "en": "Show value in middle",
+                "de": "Zeige Wert in der Mitte",
+                "ru": "Показать значение в центре"
+            },
+            "group_colors": {"en": "Colors", "de": "Farben", "ru": "Цвета"},
+            "group_max_values": {"en": "Max values", "de": "Maximale Werte", "ru": "Максимальные значения"}
+        });
+    }
+
+    //jQuery.extend(true, vis.binds, {
+    vis.binds['canvas-gauges'] = {
+        // Register callback in dashUI
+        init: function () {
+            if (!vis.binds['canvas-gauges'].regElements) {
+                vis.binds['canvas-gauges'].regElements = [];
+                vis.registerOnChange(vis.binds['canvas-gauges'].onchange, null);
+            }
+        },
+
+        // Callback from DashUI if some object changed
+        onchange: function (arg, objId, newState, isFromDevice, lastchange) {
+            if (vis.binds['canvas-gauges'].regElements[objId]) {
+                for (var i = 0, len = vis.binds['canvas-gauges'].regElements[objId].length; i < len; i++) {
+                    var elem = document.getElementById(vis.binds['canvas-gauges'].regElements[objId][i]);
+                    if (elem && elem.rgraphValueChange) {
+                        elem.rgraphValueChange(objId, newState, isFromDevice);
+                    }
+                }
+            }
+        },
+
+        registerIds: function (wid, objId) {
+            if (typeof objId === 'object') {
+                for (var i = 0, len = objId.length; i < len; i++)
+                    if (objId[i] && (!vis.binds['canvas-gauges'].regElements[objId[i]] || vis.binds['canvas-gauges'].regElements[objId[i]].indexOf(wid) === -1)) {
+                        if (!vis.binds['canvas-gauges'].regElements[objId[i]]) {
+                            vis.binds['canvas-gauges'].regElements[objId[i]] = [wid];
+                        }
+                        else {
+                            vis.binds['canvas-gauges'].regElements[objId[i]].push(wid);
+                        }
+                    }
+            }
+            else if (!vis.binds['canvas-gauges'].regElements[objId] || vis.binds['canvas-gauges'].regElements[objId].indexOf(wid) === -1) {
+                if (!vis.binds['canvas-gauges'].regElements[objId]) {
+                    vis.binds['canvas-gauges'].regElements[objId] = [wid];
+                }
+                else {
+                    vis.binds['canvas-gauges'].regElements[objId].push(wid);
+                }
+            }
+        },
+
+        // Create or replace div with canvas inside it
+        createCanvas: function (view, wid, _class, oid, width, height, canvasWidth, canvasHeight) {
+            vis.binds['canvas-gauges'].init();
+            vis.binds['canvas-gauges'].registerIds(wid, oid);
+
+            var style = vis.views[view].widgets[wid] ? vis.views[view].widgets[wid].style || {} : {};
+            style.width = parseInt(style.width) || parseInt(width);
+            style.height = parseInt(style.height) || parseInt(height);
+
+            //$('#'+wid).remove ();
+            if (!document.getElementById(wid)) {
+                $('#visview_' + view).append('<div class="vis-widget ' + (_class || "") + '" id="' + wid + '" data-oid="' + oid + '" >' +
+                        '<canvas class="vis-widget" id="c' + wid + '"></canvas></div>');
+            } else {
+                $('#' + wid).addClass(_class || '');
+            }
+            $('#' + wid).css(style);
+
+            // Canvas understand no Style, so set width and height extra
+            var can = document.getElementById('c' + wid);
+            canvasWidth = parseInt(canvasWidth) || style.width;
+            canvasHeight = parseInt(canvasHeight) || style.height;
+            can.width = canvasWidth;
+            can.height = canvasHeight;
+        },
+
+        gaugeDestroy: function (wid, $wid) {
+            if ($wid && $wid.length) {
+                var bound = $wid.data('bound');
+                var gauge = $wid.data('gauge');
+                var bindHandler = $wid.data('bindHandler');
+                for (var b = 0; b < bound.length; b++) {
+                    vis.states.unbind(bound[b], bindHandler);
+                }
+                gauge.destroy();
+            }
+        },
+        linearGauge: function (view, data) {
+            var wid = data.attr('wid');
+            var $wid = $('#' + wid).css('overflow', 'visible');
+            if (!$wid.length) {
+                setTimeout(function () {
+                    vis.binds['canvas-gauges'].linearGauge(view, data);
+                }, 100);
+                return;
+            }
+            if (!$wid.is(':visible')) {
+                setTimeout(function () {
+                    vis.binds['canvas-gauges'].linearGauge(view, data);
+                }, 1000);
+                return;
+            }
+
+            $wid.css('overflow', 'visible');
+
+            var w = $wid.width();
+            var h = $wid.height();
+            var gauge = $wid.data('gauge');
+
+            var options = {
+                width:          w,
+                height:         h,
+                title:          data.attr('title') || '',
+                minValue:       parseFloat(data.attr('minValue')) || 0,
+                maxValue:       parseFloat(data.attr('maxValue')),
+                units:          data.attr('units') || '',
+                factor:         parseFloat(data.attr('factor')) || 1,
+                offset:         parseFloat(data.attr('valueOffset')) || 0,
+
+                minorTicks:     parseInt(data.attr('minorTicks'), 10) || 1,
+                strokeTicks:    data.attr('strokeTicks') === 'true' || data.attr('strokeTicks') === true,
+                majorTicksInt:  parseInt(data.attr('majorTicksInt'), 10) || 4,
+                majorTicksDec:  parseInt(data.attr('majorTicksDec'), 10) || 2,
+                highlights:     undefined,
+
+                animation:      data.attr('animation') === 'true' || data.attr('animation') === true,
+                animationDuration:  parseInt(data.attr('animationDuration')) || 500,
+                animationRule:  data.attr('animationRule') || 'linear',
+                animatedValue:  data.attr('animatedValue') === 'true' || data.attr('animatedValue') === true,
+                animateOnInit:  data.attr('animateOnInit') === 'true' || data.attr('animateOnInit') === true,
+
+                borderRadius:   parseFloat($wid.css('border-radius')),
+                barStrokeWidth: parseInt(data.attr('barStrokeWidth'), 10) || 20
+            };
+
+            if (isNaN(options.maxValue)) options.maxValue = 100;
+
+            if (data.attr('colorPlate'))             options.colorPlate = data.attr('colorPlate');
+            if (data.attr('colorPlateEnd'))          options.colorPlateEnd = data.attr('colorPlateEnd');
+            if (data.attr('colorMajorTicks'))        options.colorMajorTicks = data.attr('colorMajorTicks');
+            if (data.attr('colorMinorTicks'))        options.colorMinorTicks = data.attr('colorMinorTicks');
+            if (data.attr('colorTitle'))             options.colorTitle = data.attr('colorTitle');
+            if (data.attr('colorUnits'))             options.colorUnits = data.attr('colorUnits');
+            if (data.attr('colorNumbers'))           options.colorNumbers = data.attr('colorNumbers');
+            if (data.attr('colorNeedle'))            options.colorNeedle = data.attr('colorNeedle');
+            if (data.attr('colorNeedleEnd'))         options.colorNeedleEnd = data.attr('colorNeedleEnd');
+            if (data.attr('colorValueText'))         options.colorValueText = data.attr('colorValueText');
+            if (data.attr('colorValueTextShadow'))   options.colorValueTextShadow = data.attr('colorValueTextShadow');
+            if (data.attr('colorBorderShadow'))      options.colorBorderShadow = data.attr('colorBorderShadow');
+            if (data.attr('colorBorderOuter'))       options.colorBorderOuter = data.attr('colorBorderOuter');
+            if (data.attr('colorBorderOuterEnd'))    options.colorBorderOuterEnd = data.attr('colorBorderOuterEnd');
+            if (data.attr('colorBorderMiddle'))      options.colorBorderMiddle = data.attr('colorBorderMiddle');
+            if (data.attr('colorBorderMiddleEnd'))   options.colorBorderMiddleEnd = data.attr('colorBorderMiddleEnd');
+            if (data.attr('colorBorderInner'))       options.colorBorderInner = data.attr('colorBorderInner');
+            if (data.attr('colorBorderInnerEnd'))    options.colorBorderInnerEnd = data.attr('colorBorderInnerEnd');
+            if (data.attr('colorValueBoxRect'))      options.colorValueBoxRect = data.attr('colorValueBoxRect');
+            if (data.attr('colorValueBoxRectEnd'))   options.colorValueBoxRectEnd = data.attr('colorValueBoxRectEnd');
+            if (data.attr('colorValueBoxBackground'))options.colorValueBoxBackground = data.attr('colorValueBoxBackground');
+            if (data.attr('colorValueBoxShadow'))    options.colorValueBoxShadow = data.attr('colorValueBoxShadow');
+            if (data.attr('colorNeedleShadowUp'))    options.colorNeedleShadowUp = data.attr('colorNeedleShadowUp');
+            if (data.attr('colorNeedleShadowDown'))  options.colorNeedleShadowDown = data.attr('colorNeedleShadowDown');
+
+            if (data.attr('borders') !== undefined)                                                     options.borders = data.attr('borders');
+            if (data.attr('borderOuterWidth')  !== undefined && data.attr('borderOuterWidth')  !== '')  options.borderOuterWidth  = parseFloat(data.attr('borderOuterWidth'));
+            if (data.attr('borderMiddleWidth') !== undefined && data.attr('borderMiddleWidth') !== '')  options.borderMiddleWidth = parseFloat(data.attr('borderMiddleWidth'));
+            if (data.attr('borderInnerWidth')  !== undefined && data.attr('borderInnerWidth')  !== '')  options.borderInnerWidth  = parseFloat(data.attr('borderInnerWidth'));
+            if (data.attr('borderShadowWidth') !== undefined && data.attr('borderShadowWidth') !== '')  options.borderShadowWidth = parseFloat(data.attr('borderShadowWidth'));
+
+            if (data.attr('valueBox') !== undefined)                                                     options.valueBox = data.attr('valueBox');
+            if (data.attr('valueText')             !== undefined && data.attr('valueText') !== '')       options.valueText = data.attr('valueText');
+            if (data.attr('valueBoxStroke')        !== undefined && data.attr('valueBoxStroke') !== '')  options.valueBoxStroke  = parseFloat(data.attr('valueBoxStroke'));
+            if (data.attr('valueTextShadow')       !== undefined)                                        options.valueTextShadow = data.attr('valueTextShadow');
+            if (data.attr('valueBoxBorderRadius')  !== undefined && data.attr('valueBoxBorderRadius') !== '')  options.valueBoxBorderRadius  = parseFloat(data.attr('valueBoxBorderRadius'));
+            if (data.attr('valueInt')              !== undefined && data.attr('valueInt') !== '')       options.valueInt = parseInt(data.attr('valueInt'), 10);
+            if (data.attr('valueDec')              !== undefined && data.attr('valueDec') !== '')       options.valueDec = parseInt(data.attr('valueDec'), 10);
+
+            if (data.attr('fontNumbers') !== undefined && data.attr('fontNumbers') !== '')  options.fontNumbers = data.attr('fontNumbers');
+            if (data.attr('fontTitle')   !== undefined && data.attr('fontTitle')   !== '')  options.fontTitle   = data.attr('fontTitle');
+            if (data.attr('fontUnits')   !== undefined && data.attr('fontUnits')   !== '')  options.fontUnits   = data.attr('fontUnits');
+            if (data.attr('fontValue')   !== undefined && data.attr('fontValue')   !== '')  options.fontValue   = data.attr('fontValue');
+            if (data.attr('fontNumbersSize') !== undefined && data.attr('fontNumbersSize') !== '')  options.fontNumbersSize = parseInt(data.attr('fontNumbersSize'), 10);
+            if (data.attr('fontTitleSize')   !== undefined && data.attr('fontTitleSize')   !== '')  options.fontTitleSize   = parseInt(data.attr('fontTitleSize'), 10);
+            if (data.attr('fontUnitsSize')   !== undefined && data.attr('fontUnitsSize')   !== '')  options.fontUnitsSize   = parseInt(data.attr('fontUnitsSize'), 10);
+            if (data.attr('fontValueSize')   !== undefined && data.attr('fontValueSize')   !== '')  options.fontValueSize   = parseInt(data.attr('fontValueSize'), 10);
+
+            // convert majorTicks
+            var majorTicks = data.attr('majorTicks');
+
+            console.log('A')
+            if (typeof majorTicks === 'string' && majorTicks.indexOf(',') !== -1) {
+                majorTicks = majorTicks.split(',');
+                for (var m = majorTicks.length - 1; m >= 0; m--) {
+                    majorTicks[m] = parseFloat(majorTicks[m].trim());
+                    if (isNaN(majorTicks[m])) majorTicks.splice(m, 1);
+                }
+            } else {
+                majorTicks = parseFloat(majorTicks);
+                if (majorTicks) {
+                    var start = options.minValue;
+                    var step = (options.maxValue - options.minValue) / (majorTicks - 1);
+                    majorTicks = [];
+                    while(start <= options.maxValue) {
+                        majorTicks.push(start);
+                        start += step;
+                    }
+                } else {
+                    majorTicks = undefined;
+                }
+            }
+
+            if (!majorTicks) {
+                majorTicks = [];
+                var start = options.minValue;
+                var step = (options.maxValue - options.minValue) / 5;
+                while(start <= options.maxValue) {
+                    majorTicks.push(start);
+                    start += step;
+                }
+            }
+            if (majorTicks[majorTicks.length - 1] !== options.maxValue) {
+                majorTicks.push(options.maxValue);
+            }
+            options.majorTicks = majorTicks;
+
+            if (gauge) {
+                gauge.update(options);
+            } else {
+                options.value = options.minValue || 0;
+                $wid.html('<canvas class="vis-canvas-gauges"></canvas>');
+                options.renderTo = $wid.find('.vis-canvas-gauges')[0];
+                gauge = new LinearGauge(options);
+                $wid.data('gauge', gauge);
+                gauge.draw();
+
+                if (vis.editMode && vis.activeWidgets.indexOf(wid) !== -1) {
+                    $wid.resizable('destroy');
+                    vis.resizable($wid);
+                }
+            }
+
+            var oid = data.attr('oid');
+
+            if ((oid || oid === 0) && oid !== 'nothing_selected') {
+                var val = vis.states.attr(oid + '.val');
+                if (val === undefined || val === null) {
+                    val = parseFloat(val);
+                } else {
+                    var updateGauge = function (e, newVal /* , oldVal*/) {
+                        gauge.value = parseFloat(newVal) * gauge.options.factor + gauge.options.offset;
+                    };
+
+                    // remember all ids, that binded
+                    $wid.data('bound', [oid + '.val']);
+
+                    // remember bind handler
+                    $wid.data('bindHandler', updateGauge);
+
+                    vis.states.bind(oid + '.val', updateGauge);
+                }
+                gauge.value = val * gauge.options.factor + gauge.options.offset;
+            }
+
+            // register destroy handler
+            $wid.data('destroy', vis.binds['canvas-gauges'].gaugeDestroy);
+        }
+    };
+</script>
+
+<script id="tplCGlinearGauge"
+        type="text/ejs"
+        class="vis-tpl"
+        data-vis-type="temperature,number"
+        data-vis-set="canvas-gauges"
+        data-vis-name="Linear"
+        data-vis-update-style="true"
+        data-vis-prev='<img src="widgets/canvas-gauges/img/prev/Prev_cgLinear.png"></img>'
+        data-vis-attrs="oid;minValue[0];maxValue[100];units;title;factor[1];valueOffset[0];"
+        data-vis-attrs0="group.ticks;majorTicks/slider,0,20,1;minorTicks/slider,0,20,1;strokeTicks/checkbox;majorTicksInt/slider,0,10,1;majorTicksDec/slider,0,10,1;"
+        data-vis-attrs1="group.animation;animation/checkbox;animationDuration/slider,0,2000,50;animationRule/select,linear,quad,quint,cycle,bounce,elastic,dequad,dequint,decycle,debounce,delastic;animatedValue/checkbox;animateOnInit/checkbox;"
+        data-vis-attrs2="group.colors;colorPlate/color;colorPlateEnd/color;colorMajorTicks/color;colorMinorTicks/color;colorTitle/color;colorUnits/color;colorNumbers/color;colorNeedle/color;colorNeedleEnd/color;colorValueText/color;colorValueTextShadow/color;colorBorderShadow/color;colorBorderOuter/color;colorBorderOuterEnd/color;colorBorderMiddle/color;colorBorderMiddleEnd/color;colorBorderInner/color;colorBorderInnerEnd/color;colorValueBoxRect/color;colorValueBoxRectEnd/color;colorValueBoxBackground/color;colorValueBoxShadow/color;colorNeedleShadowUp/color;colorNeedleShadowDown/color;"
+        data-vis-attrs3="group.needle;needle/checkbox;needleShadow/checkbox;needleType/select,arrow,line;needleStart/slider,0,20,1;needleEnd/slider,0,20,1;needleWidth/slider,0,20,1;"
+        data-vis-attrs4="group.borders;borders[true]/checkbox;borderOuterWidth/slider,0,20,1;borderMiddleWidth/slider,0,20,1;borderInnerWidth/slider,0,20,1;borderShadowWidth/slider,0,20,1;;"
+        data-vis-attrs5="group.valueBox;valueBox[true]/checkbox;valueBoxStroke/slider,0,20,1;valueText;valueTextShadow/checkbox;valueBoxBorderRadius/slider,0,20,1;valueInt/slider,0,20,1;valueDec/slider,0,20,1;"
+        data-vis-attrs6="group.fonts;fontNumbers/fontname;fontTitle/fontname;fontUnits/fontname;fontValue/fontname;fontNumbersSize/slider,0,100,1;fontTitleSize/slider,0,100,1;fontUnitsSize/slider,0,100,1;fontValueSize/slider,0,100,1;"
+>
+    <div class="vis-widget <%== this.data.attr('class') %>" style="overflow: visible; width: 150px; height: 250px; border-radius: 10px" id="<%= this.data.attr('wid') %>"></div>
+    <% vis.binds['canvas-gauges'].linearGauge(this.view, this.data); %>
+</script>
