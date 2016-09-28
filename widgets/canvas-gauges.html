@@ -13,315 +13,163 @@
     // Add words for bars
     if (vis.editMode) {
         $.extend(systemDictionary, {
-            "min_value": {"en": "Min value", "de": "Min Wert", "ru": "Мин. значение"},
-            "max_value": {"en": "Max value", "de": "Max Wert", "ru": "Макс. значение"},
-            "max_value_oid": {"en": "Max value ID", "de": "Max Wert Objekt", "ru": "ID макс. значения"},
-            "width": {"en": "Widget width", "de": "Widgetbreite", "ru": "Ширина элемента"},
-            "control": {"en": "Control", "de": "Steuerung", "ru": "Контроль"},
-            "factor": {"en": "Multiply factor", "de": "Wert multiplizieren", "ru": "Фактор-множитель"},
-            "value_offset": {"en": "Offset factor", "de": "Offsetwert", "ru": "Фактор сдвига"},
-            "color": {"en": "Color", "de": "Farbe", "ru": "Цвет"},
-            "show_scale": {"en": "Show scale", "de": "Zeige Skala", "ru": "Показать шкалу"},
-            "labels_color": {"en": "Labels color", "de": "Labelfarbe", "ru": "Цвет подписей шкалы"},
-            "labels_font": {"en": "Labels font", "de": "Labelfont", "ru": "Шрифт подписей шкалы"},
-            "labels_size": {"en": "Labels font size", "de": "Labelsfontgröße", "ru": "Размер подписей шкалы"},
-            "title": {"en": "Title", "de": "Titel", "ru": "Подпись"},
-            "title_side": {"en": "Side title", "de": "Seitentitel", "ru": "Вертикальная подпись"},
-            "title_side_font": {"en": "Side title font", "de": "Seitentitelfont", "ru": "Шрифт вертикальной подписи"},
-            "title_side_size": {
-                "en": "Side title font size",
-                "de": "Seitentitelfontgröße",
-                "ru": "Размер вертикальной подписи"
-            },
-            "show_shadow": {"en": "Show shadow", "de": "Zeige Schatten", "ru": "Показать тень"},
-            "ticksize": {"en": "Tick length", "de": "Zeichenlänge", "ru": "Длина штриха"},
-            "units_pre": {"en": "Units pre", "de": "Einheitsprefix", "ru": "Префикс"},
-            "units_post": {"en": "Units post", "de": "Einheitspostfix", "ru": "Суффикс"},
-            "scale_decimals": {
-                "en": "Scale decimals",
-                "de": "Nachkommazeichen bei Skala",
-                "ru": "Чисел после запятой шкалы"
-            },
-            "show_value": {"en": "Show value", "de": "Zeige Wert", "ru": "Показать значение"},
-            "value_decimals": {
-                "en": "Value decimals",
-                "de": "Nachkommazeichen beim Wert",
-                "ru": "Чисел после запятой значения"
-            },
-            "labels_count": {"en": "Labels count", "de": "Anzahl von Labels", "ru": "Кол-во подписей в шкале"},
-            "animate": {"en": "Show animation", "de": "Zeige Animation", "ru": "Плавное изменение"},
-            // Gauge
-            "oid_2": {"en": "Second object ID", "de": "Zweite ObjektID", "ru": "ID второго объекта"},
-            "oid_3": {"en": "Third object ID", "de": "Dritte ObjektID", "ru": "ID третьего объекта"},
-            "a_start": {"en": "Scale start", "de": "Anfang von Skala", "ru": "Начало шкалы"},
-            "a_end": {"en": "Scale end", "de": "Ende von Skala", "ru": "Конец шкалы"},
-            "ticks_big_color": {"en": "Big tick color", "de": "Farbe von langen Ticks", "ru": "Цвет длинных штрихов"},
-            "ticks_small_color": {
-                "en": "Small tick color",
-                "de": "Farbe von kurzen Ticks",
-                "ru": "Цвет коротких штрихов"
-            },
-            "border_outer_color": {"en": "Outer border color", "de": "Aussenrand-Farbe", "ru": "Цвет внешней каймы"},
-            "border_inner_color": {"en": "Inner border color", "de": "Innenrabd-Farbe", "ru": "Цвет внутренней каймы"},
-            "back_color": {"en": "Background color", "de": "Hintergrund-Farbe", "ru": "Цвет фона"},
-            "background_gradient": {
-                "en": "Gradient background",
-                "de": "Hintergrund mit Gradient",
-                "ru": "Фон с градиентом"
-            },
-            "border_outline_color": {"en": "Outline border color", "de": "Abgrenzungrand-Farbe", "ru": "Цвет границы"},
-            "needle_colors": {"en": "Needle colors", "de": "Zeigerfarben", "ru": "Цвет стрелки"},
-            "needle_type": {"en": "Needle type", "de": "Zeigertyp", "ru": "Тип стрелки"},
-            "needle_tail": {"en": "Show needle tail", "de": "Zeige Zeigerschwanz", "ru": "Показать хвостик стрелки"},
-            "needle_size": {"en": "Needle size", "de": "Zeigergröße", "ru": "Размер стрелки"},
-            "centerpin_radius": {
-                "en": "Center radius",
-                "de": "Radius von Mittelpunkt",
-                "ru": "Радиус центральной точки"
-            },
-            "centerpin_color": {"en": "Center color", "de": "Farbe von Mittelpunkt", "ru": "Цвет центральной точки"},
-            "title_color": {"en": "Top title color", "de": "Obere Beschriftungsfarbe", "ru": "Цвет верхней подписи"},
-            "title_font": {"en": "Top title font", "de": "Oberer Beschriftungsfont", "ru": "Шрифт верхней подписи"},
-            "title_size": {"en": "Top title size", "de": "Obere Beschriftungsgröße", "ru": "Размер верхней подписи"},
-            "title_pos": {
-                "en": "Top title position",
-                "de": "Obere Beschriftungs- Position",
-                "ru": "Положение верхней подписи"
-            },
-            "title_bottom": {"en": "Bottom title", "de": "Untere Beschriftung", "ru": "Нижняя подпись"},
-            "title_bottom_color": {
-                "en": "Bottom title color",
-                "de": "Untere Beschriftungsfarbe",
-                "ru": "Цвет нижней подписи"
-            },
-            "title_bottom_font": {
-                "en": "Bottom title font",
-                "de": "Unterer Beschriftungfont",
-                "ru": "Шрифт нижней подписи"
-            },
-            "title_bottom_size": {
-                "en": "Bottom title size",
-                "de": "Untere Beschriftungsgröße",
-                "ru": "Размер верхней подписи"
-            },
-            "title_bottom_pos": {
-                "en": "Bottom title position",
-                "de": "Untere Beschriftungs- Position",
-                "ru": "Положение нижней подписи"
-            },
-            "labels_centered": {
-                "en": "Centered labels",
-                "de": "Labels zentriert",
-                "ru": "Подписи шкалы ближе к границе"
-            },
-            "labels_offset": {"en": "Labels offset", "de": "Offsetlables", "ru": "Сдвиг подписей шкалы"},
-            "red_start": {"en": "End of third sector", "de": "Ende von dritten Sektor", "ru": "Конец третьего сектора"},
-            "red_color": {
-                "en": "Color of third sector",
-                "de": "Farbe von dritten Sektor",
-                "ru": "Цвет третьего сектора"
-            },
-            "yellow_color": {
-                "en": "Color of second sector",
-                "de": "Farbe von zweten Sektor",
-                "ru": "Цвет второго сектора"
-            },
-            "green_color": {
-                "en": "Color of first sector",
-                "de": "Farbe von ersten Sektor",
-                "ru": "Цвет первого сектора"
-            },
-            "green_end": {"en": "End of first sector", "de": "Ende von ersten Sektor", "ru": "Конец первого сектора"},
-            "padding_left": {"en": "Padding left", "de": "Abstand links", "ru": "Отступ слева"},
-            "padding_right": {"en": "Padding right", "de": "Abstand rechts", "ru": "Отступ справа"},
-            "animate_tooltip": {
-                "en": "Slow changes of value",
-                "de": "Langsame Wertänderung",
-                "ru": "Анимированное изменение значения"
-            },
-            "Arial": {"en": "Arial", "de": "Arial", "ru": "Arial"},
-            "Times": {"en": "Times", "de": "Times", "ru": "Times"},
-            "Andale Mono": {"en": "Andale Mono", "de": "Andale Mono", "ru": "Andale Mono"},
-            "Comic Sans": {"en": "Comic Sans", "de": "Comic Sans", "ru": "Comic Sans"},
-            "Impact": {"en": "Impact", "de": "Impact", "ru": "Impact"},
-            "group_scale": {"en": "Scale", "de": "Skala", "ru": "Шкала"},
-            "group_title": {"en": "Title", "de": "Beschriftung", "ru": "Подпись"},
-            "group_advanced": {"en": "Advanced", "de": "Erweitert", "ru": "Дополнительно"},
-            "group_background": {"en": "Background", "de": "Hintergrund", "ru": "Фон"},
-            "group_labels": {"en": "Labels", "de": "Aufschrift", "ru": "Надписи"},
-            "group_sectors": {"en": "Sectors", "de": "Sektoren", "ru": "Сектора"},
-            "line_color": {"en": "Line color", "de": "Liniefarbe", "ru": "Цвет линии"},
-            "line_thick": {"en": "Line thickness", "de": "Linienbreite", "ru": "Толщина линии"},
-            "update_interval": {
-                "en": "Update interval(ms)",
-                "de": "Aktualisierungs- Intervall(ms)",
-                "ru": "Обновление(мс)"
-            },
-            "update_interval_tooltip": {
-                "en": "How offten the new point will be painted on graphics.\x0AMake it smaller to see the changes.",
-                "de": "Wie oft wird neuen Punkt gemalt.\x0AMach es kleiner um die Änderungen zu sehen.",
-                "ru": "Как часто рисуется новая точка на графике\x0AНапиши маленькое значение, что бы понять, как работает график."
-            },
-            "points_count": {
-                "en": "Points number on X",
-                "de": "Punktenanzahl über X",
-                "ru": "Количество точек в графике по X"
-            },
-            "title_x": {"en": "Title for x axis", "de": "Beschriftung X-Achse", "ru": "Подпись шкалы X"},
-            "title_y": {"en": "Title for y axis", "de": "Beschriftung Y-Achse", "ru": "Подпись шкалы Y"},
-            "num_hlines": {
-                "en": "Horizontal lines number",
-                "de": "Anzahl von horizontalen Linien",
-                "ru": "Кол-во горизонтальных линий"
-            },
-            "spline": {"en": "Spline smoothing", "de": "Splineglättung", "ru": "Сглаживание сплайном"},
-            "filled": {"en": "Filled graphics", "de": "Gefüllte Grafik", "ru": "Закрашеный график"},
-            "group_oid_show": {
-                "en": "Show lines depends on",
-                "de": "Zeige Linien abhängig von",
-                "ru": "Показать линии в зависимости от"
-            },
-            "oid_show": {
-                "en": "Show line depends on",
-                "de": "Zeige Linie abhängig von",
-                "ru": "Показать линию в зависимости от"
-            },
-            "triangle": {"en": "Triangle form", "de": "Dreieckform", "ru": "Треугольной формы"},
-            "line": {"en": "Line", "de": "Linie", "ru": "Линия"},
-            "group_settings": {"en": "Settings", "de": "Einstellungen", "ru": "Настройки"},
-            "filled_color": {"en": "Color of the bar's bottom", "de": "Barfarbe unten", "ru": "Цвет графика снизу"},
-            "empty_color": {"en": "Color of the bar top", "de": "Barfarbe oben", "ru": "Цвет графика сверху"},
-            "label_color": {"en": "Labels color", "de": "Beschriftungs- Farbe", "ru": "Цвет подписей"},
-            "legend": {"en": "Show legend", "de": "Zeige Legende", "ru": "Показать легенду"},
-            "filled_text": {
-                "en": "Legend for filled value",
-                "de": "Legende für den Wert",
-                "ru": "Легенда для значения"
-            },
-            "empty_text": {
-                "en": "Legend for non-filled value",
-                "de": "Legende für den Gegenwert",
-                "ru": "Легенда для пустого значения"
-            },
-            "labels_above": {
-                "en": "Show max value at top",
-                "de": "Zeige maximales Wert oben",
-                "ru": "Показать максимальное значение"
-            },
-            "label_size": {"en": "Label's size", "de": "Beschriftungs- größe", "ru": "Размер подписей"},
-            "labels_above_angle": {
-                "en": "Max value at top with angle",
-                "de": "Zeige maximales Wert oben diagonal",
-                "ru": "Максимальное значение под углом"
-            },
-            "decimals": {"en": "Digits after comma", "de": "Nach Kommazahlen", "ru": "Чисел после запятой"},
-            "gutter_left": {"en": "Gutter left", "de": "Abstand links", "ru": "Отступ слева"},
-            "horz_margin": {"en": "Horizontal margin", "de": "Horizontaler Abstand", "ru": "Горизонтальный отступ"},
-            "bar_labels_color": {"en": "Bar value's color", "de": "Bar-Wert-Farbe", "ru": "Цвет значения"},
-            "bar_labels_bold": {"en": "Bar value's bold font", "de": "Bar-Wert-Dick", "ru": "Жирный шрифт значения"},
-            "bar_labels_center": {
-                "en": "Show value in middle",
-                "de": "Zeige Wert in der Mitte",
-                "ru": "Показать значение в центре"
-            },
-            "group_colors": {"en": "Colors", "de": "Farben", "ru": "Цвета"},
-            "group_max_values": {"en": "Max values", "de": "Maximale Werte", "ru": "Максимальные значения"}
+            "linear":           {"en": "linear", "de": "linear", "ru": "linear"},
+            "quad":             {"en": "quad", "de": "quad", "ru": "quad"},
+            "quint":            {"en": "quint", "de": "quint", "ru": "quint"},
+            "cycle":            {"en": "cycle", "de": "cycle", "ru": "cycle"},
+            "elastic":          {"en": "elastic", "de": "elastic", "ru": "elastic"},
+            "dequad":           {"en": "dequad", "de": "dequad", "ru": "dequad"},
+            "dequint":          {"en": "dequint", "de": "dequint", "ru": "dequint"},
+            "decycle":          {"en": "decycle", "de": "decycle", "ru": "decycle"},
+            "debounce":         {"en": "debounce", "de": "debounce", "ru": "debounce"},
+            "delastic":         {"en": "delastic", "de": "delastic", "ru": "delastic"},
+            "arrow":            {"en": "arrow", "de": "arrow", "ru": "arrow"},
+            "minValue":         {"en": "minValue", "de": "minValue", "ru": "minValue"},
+            "maxValue":         {"en": "maxValue", "de": "maxValue", "ru": "maxValue"},
+            "valueOffset":      {"en": "valueOffset", "de": "valueOffset", "ru": "valueOffset"},
+            "hCount":           {"en": "hCount", "de": "hCount", "ru": "hCount"},
+            "group_highlights": {"en": "group_highlights", "de": "group_highlights", "ru": "group_highlights"},
+            "highlightsFrom":   {"en": "highlightsFrom", "de": "highlightsFrom", "ru": "highlightsFrom"},
+            "highlightsTo":     {"en": "highlightsTo", "de": "highlightsTo", "ru": "highlightsTo"},
+            "highlightsColor":  {"en": "highlightsColor", "de": "highlightsColor", "ru": "highlightsColor"},
+            "majorTicks":       {"en": "majorTicks", "de": "majorTicks", "ru": "majorTicks"},
+            "minorTicks":       {"en": "minorTicks", "de": "minorTicks", "ru": "minorTicks"},
+            "strokeTicks":      {"en": "strokeTicks", "de": "strokeTicks", "ru": "strokeTicks"},
+            "majorTicksInt":    {"en": "majorTicksInt", "de": "majorTicksInt", "ru": "majorTicksInt"},
+            "majorTicksDec":    {"en": "majorTicksDec", "de": "majorTicksDec", "ru": "majorTicksDec"},
+            "group_animation":  {"en": "group_animation", "de": "group_animation", "ru": "group_animation"},
+            "animation":        {"en": "animation", "de": "animation", "ru": "animation"},
+            "animationDuration": {"en": "animationDuration", "de": "animationDuration", "ru": "animationDuration"},
+            "animationRule":    {"en": "animationRule", "de": "animationRule", "ru": "animationRule"},
+            "animatedValue":    {"en": "animatedValue", "de": "animatedValue", "ru": "animatedValue"},
+            "animateOnInit":    {"en": "animateOnInit", "de": "animateOnInit", "ru": "animateOnInit"},
+            "group_colorsGauge": {"en": "group_colorsGauge", "de": "group_colorsGauge", "ru": "group_colorsGauge"},
+            "colorPlate":       {"en": "colorPlate", "de": "colorPlate", "ru": "colorPlate"},
+            "colorPlateEnd":    {"en": "colorPlateEnd", "de": "colorPlateEnd", "ru": "colorPlateEnd"},
+            "colorMajorTicks":  {"en": "colorMajorTicks", "de": "colorMajorTicks", "ru": "colorMajorTicks"},
+            "colorMinorTicks":  {"en": "colorMinorTicks", "de": "colorMinorTicks", "ru": "colorMinorTicks"},
+            "colorTitle":       {"en": "colorTitle", "de": "colorTitle", "ru": "colorTitle"},
+            "colorUnits":       {"en": "colorUnits", "de": "colorUnits", "ru": "colorUnits"},
+            "colorNumbers":     {"en": "colorNumbers", "de": "colorNumbers", "ru": "colorNumbers"},
+            "colorNeedle":      {"en": "colorNeedle", "de": "colorNeedle", "ru": "colorNeedle"},
+            "colorNeedleEnd":   {"en": "colorNeedleEnd", "de": "colorNeedleEnd", "ru": "colorNeedleEnd"},
+            "colorValueText":   {"en": "colorValueText", "de": "colorValueText", "ru": "colorValueText"},
+            "colorValueTextShadow":     {"en": "colorValueTextShadow", "de": "colorValueTextShadow", "ru": "colorValueTextShadow"},
+            "colorBorderShadow":        {"en": "colorBorderShadow", "de": "colorBorderShadow", "ru": "colorBorderShadow"},
+            "colorBorderOuter":         {"en": "colorBorderOuter", "de": "colorBorderOuter", "ru": "colorBorderOuter"},
+            "colorBorderOuterEnd":      {"en": "colorBorderOuterEnd", "de": "colorBorderOuterEnd", "ru": "colorBorderOuterEnd"},
+            "colorBorderMiddle":        {"en": "colorBorderMiddle", "de": "colorBorderMiddle", "ru": "colorBorderMiddle"},
+            "colorBorderMiddleEnd":     {"en": "colorBorderMiddleEnd", "de": "colorBorderMiddleEnd", "ru": "colorBorderMiddleEnd"},
+            "colorBorderInner":         {"en": "colorBorderInner", "de": "colorBorderInner", "ru": "colorBorderInner"},
+            "colorBorderInnerEnd":      {"en": "colorBorderInnerEnd", "de": "colorBorderInnerEnd", "ru": "colorBorderInnerEnd"},
+            "colorValueBoxRect":        {"en": "colorValueBoxRect", "de": "colorValueBoxRect", "ru": "colorValueBoxRect"},
+            "colorValueBoxRectEnd":     {"en": "colorValueBoxRectEnd", "de": "colorValueBoxRectEnd", "ru": "colorValueBoxRectEnd"},
+            "colorValueBoxBackground":  {"en": "colorValueBoxBackground", "de": "colorValueBoxBackground", "ru": "colorValueBoxBackground"},
+            "colorValueBoxShadow":      {"en": "colorValueBoxShadow", "de": "colorValueBoxShadow", "ru": "colorValueBoxShadow"},
+            "colorNeedleShadowUp":      {"en": "colorNeedleShadowUp", "de": "colorNeedleShadowUp", "ru": "colorNeedleShadowUp"},
+            "colorNeedleShadowDown":    {"en": "colorNeedleShadowDown", "de": "colorNeedleShadowDown", "ru": "colorNeedleShadowDown"},
+            "needle":           {"en": "needle", "de": "needle", "ru": "needle"},
+            "needleShadow":     {"en": "needleShadow", "de": "needleShadow", "ru": "needleShadow"},
+            "needleType":       {"en": "needleType", "de": "needleType", "ru": "needleType"},
+            "needleStart":      {"en": "needleStart", "de": "needleStart", "ru": "needleStart"},
+            "needleEnd":        {"en": "needleEnd", "de": "needleEnd", "ru": "needleEnd"},
+            "needleWidth":      {"en": "needleWidth", "de": "needleWidth", "ru": "needleWidth"},
+            "group_borders":    {"en": "group_borders", "de": "group_borders", "ru": "group_borders"},
+            "borders":          {"en": "borders", "de": "borders", "ru": "borders"},
+            "borderOuterWidth": {"en": "borderOuterWidth", "de": "borderOuterWidth", "ru": "borderOuterWidth"},
+            "borderMiddleWidth": {"en": "borderMiddleWidth", "de": "borderMiddleWidth", "ru": "borderMiddleWidth"},
+            "borderInnerWidth": {"en": "borderInnerWidth", "de": "borderInnerWidth", "ru": "borderInnerWidth"},
+            "borderShadowWidth": {"en": "borderShadowWidth", "de": "borderShadowWidth", "ru": "borderShadowWidth"},
+            "group_valueBox":   {"en": "group_valueBox", "de": "group_valueBox", "ru": "group_valueBox"},
+            "valueBox":         {"en": "valueBox", "de": "valueBox", "ru": "valueBox"},
+            "valueBoxStroke":   {"en": "valueBoxStroke", "de": "valueBoxStroke", "ru": "valueBoxStroke"},
+            "valueText":        {"en": "valueText", "de": "valueText", "ru": "valueText"},
+            "valueTextShadow":  {"en": "valueTextShadow", "de": "valueTextShadow", "ru": "valueTextShadow"},
+            "valueBoxBorderRadius": {"en": "valueBoxBorderRadius", "de": "valueBoxBorderRadius", "ru": "valueBoxBorderRadius"},
+            "valueInt":         {"en": "valueInt", "de": "valueInt", "ru": "valueInt"},
+            "valueDec":         {"en": "valueDec", "de": "valueDec", "ru": "valueDec"},
+            "group_fonts":      {"en": "group_fonts", "de": "group_fonts", "ru": "group_fonts"},
+            "fontNumbers":      {"en": "fontNumbers", "de": "fontNumbers", "ru": "fontNumbers"},
+            "fontTitle":        {"en": "fontTitle", "de": "fontTitle", "ru": "fontTitle"},
+            "fontUnits":        {"en": "fontUnits", "de": "fontUnits", "ru": "fontUnits"},
+            "fontValue":         {"en": "fontValue", "de": "fontValue", "ru": "fontValue"},
+            "fontNumbersSize":  {"en": "fontNumbersSize", "de": "fontNumbersSize", "ru": "fontNumbersSize"},
+            "fontTitleSize":    {"en": "fontTitleSize", "de": "fontTitleSize", "ru": "fontTitleSize"},
+            "fontUnitsSize":    {"en": "fontUnitsSize", "de": "fontUnitsSize", "ru": "fontUnitsSize"},
+            "fontValueSize":    {"en": "fontValueSize", "de": "fontValueSize", "ru": "fontValueSize"},
+            "fontNumbersStyle": {"en": "fontNumbersStyle", "de": "fontNumbersStyle", "ru": "fontNumbersStyle"},
+            "fontTitleStyle":   {"en": "fontTitleStyle", "de": "fontTitleStyle", "ru": "fontTitleStyle"},
+            "fontUnitsStyle":   {"en": "fontUnitsStyle", "de": "fontUnitsStyle", "ru": "fontUnitsStyle"},
+            "fontValueStyle":   {"en": "fontValueStyle", "de": "fontValueStyle", "ru": "fontValueStyle"},
+            "fontNumbersWeight": {"en": "fontNumbersWeight", "de": "fontNumbersWeight", "ru": "fontNumbersWeight"},
+            "fontTitleWeight":  {"en": "fontTitleWeight", "de": "fontTitleWeight", "ru": "fontTitleWeight"},
+            "fontUnitsWeight":  {"en": "fontUnitsWeight", "de": "fontUnitsWeight", "ru": "fontUnitsWeight"},
+            "fontValueWeight":  {"en": "fontValueWeight", "de": "fontValueWeight", "ru": "fontValueWeight"},
+            "group_gaugeBar":   {"en": "group_gaugeBar", "de": "group_gaugeBar", "ru": "group_gaugeBar"},
+            "barBeginCircle":   {"en": "barBeginCircle", "de": "barBeginCircle", "ru": "barBeginCircle"},
+            "barWidth":         {"en": "barWidth", "de": "barWidth", "ru": "barWidth"},
+            "barLength":        {"en": "barLength", "de": "barLength", "ru": "barLength"},
+            "barStrokeWidth":   {"en": "barStrokeWidth", "de": "barStrokeWidth", "ru": "barStrokeWidth"},
+            "barProgress":      {"en": "barProgress", "de": "barProgress", "ru": "barProgress"},
+            "group_colorsBar":  {"en": "group_colorsBar", "de": "group_colorsBar", "ru": "group_colorsBar"},
+            "colorBarStroke":   {"en": "colorBarStroke", "de": "colorBarStroke", "ru": "colorBarStroke"},
+            "colorBar":         {"en": "colorBar", "de": "colorBar", "ru": "colorBar"},
+            "colorBarEnd":      {"en": "colorBarEnd", "de": "colorBarEnd", "ru": "colorBarEnd"},
+            "colorBarProgress": {"en": "colorBarProgress", "de": "colorBarProgress", "ru": "colorBarProgress"},
+            "colorBarProgressEnd": {"en": "colorBarProgressEnd", "de": "colorBarProgressEnd", "ru": "colorBarProgressEnd"},
+            "group_positions":  {"en": "group_positions", "de": "group_positions", "ru": "group_positions"},
+            "tickSide":         {"en": "tickSide", "de": "tickSide", "ru": "tickSide"},
+            "needleSide":       {"en": "needleSide", "de": "needleSide", "ru": "needleSide"},
+            "numberSide":       {"en": "numberSide", "de": "numberSide", "ru": "numberSide"},
+            "group_ticksBar":   {"en": "group_ticksBar", "de": "group_ticksBar", "ru": "group_ticksBar"},
+            "ticksWidth":       {"en": "ticksWidth", "de": "ticksWidth", "ru": "ticksWidth"},
+            "ticksWidthMinor":  {"en": "ticksWidthMinor", "de": "ticksWidthMinor", "ru": "ticksWidthMinor"},
+            "ticksPadding":     {"en": "ticksPadding", "de": "ticksPadding", "ru": "ticksPadding"},
+            "plate":            {"en": "plate", "de": "plate", "ru": "plate"},
+            "animationTarget":  {"en": "animationTarget", "de": "animationTarget", "ru": "animationTarget"},
+            "group_gaugeRadial": {"en": "group_gaugeRadial", "de": "group_gaugeRadial", "ru": "group_gaugeRadial"},
+            "ticksAngle":       {"en": "ticksAngle", "de": "ticksAngle", "ru": "ticksAngle"},
+            "startAngle":       {"en": "startAngle", "de": "startAngle", "ru": "startAngle"},
+            "group_colorsRadial":       {"en": "group_colorsRadial", "de": "group_colorsRadial", "ru": "group_colorsRadial"},
+            "colorNeedleCircleOuter":   {"en": "colorNeedleCircleOuter", "de": "colorNeedleCircleOuter", "ru": "colorNeedleCircleOuter"},
+            "colorNeedleCircleOuterEnd": {"en": "colorNeedleCircleOuterEnd", "de": "colorNeedleCircleOuterEnd", "ru": "colorNeedleCircleOuterEnd"},
+            "colorNeedleCircleInner":   {"en": "colorNeedleCircleInner", "de": "colorNeedleCircleInner", "ru": "colorNeedleCircleInner"},
+            "colorNeedleCircleInnerEnd": {"en": "colorNeedleCircleInnerEnd", "de": "colorNeedleCircleInnerEnd", "ru": "colorNeedleCircleInnerEnd"},
+            "group_needleRadial":       {"en": "group_needleRadial", "de": "group_needleRadial", "ru": "group_needleRadial"},
+            "needleCircleSize":         {"en": "needleCircleSize", "de": "needleCircleSize", "ru": "needleCircleSize"},
+            "needleCircleInner":        {"en": "needleCircleInner", "de": "needleCircleInner", "ru": "needleCircleInner"},
+            "needleCircleOuter":        {"en": "needleCircleOuter", "de": "needleCircleOuter", "ru": "needleCircleOuter"}
         });
     }
 
     //jQuery.extend(true, vis.binds, {
     vis.binds['canvas-gauges'] = {
-        // Register callback in dashUI
-        init: function () {
-            if (!vis.binds['canvas-gauges'].regElements) {
-                vis.binds['canvas-gauges'].regElements = [];
-                vis.registerOnChange(vis.binds['canvas-gauges'].onchange, null);
-            }
-        },
-
-        // Callback from DashUI if some object changed
-        onchange: function (arg, objId, newState, isFromDevice, lastchange) {
-            if (vis.binds['canvas-gauges'].regElements[objId]) {
-                for (var i = 0, len = vis.binds['canvas-gauges'].regElements[objId].length; i < len; i++) {
-                    var elem = document.getElementById(vis.binds['canvas-gauges'].regElements[objId][i]);
-                    if (elem && elem.rgraphValueChange) {
-                        elem.rgraphValueChange(objId, newState, isFromDevice);
-                    }
-                }
-            }
-        },
-
-        registerIds: function (wid, objId) {
-            if (typeof objId === 'object') {
-                for (var i = 0, len = objId.length; i < len; i++)
-                    if (objId[i] && (!vis.binds['canvas-gauges'].regElements[objId[i]] || vis.binds['canvas-gauges'].regElements[objId[i]].indexOf(wid) === -1)) {
-                        if (!vis.binds['canvas-gauges'].regElements[objId[i]]) {
-                            vis.binds['canvas-gauges'].regElements[objId[i]] = [wid];
-                        }
-                        else {
-                            vis.binds['canvas-gauges'].regElements[objId[i]].push(wid);
-                        }
-                    }
-            }
-            else if (!vis.binds['canvas-gauges'].regElements[objId] || vis.binds['canvas-gauges'].regElements[objId].indexOf(wid) === -1) {
-                if (!vis.binds['canvas-gauges'].regElements[objId]) {
-                    vis.binds['canvas-gauges'].regElements[objId] = [wid];
-                }
-                else {
-                    vis.binds['canvas-gauges'].regElements[objId].push(wid);
-                }
-            }
-        },
-
-        // Create or replace div with canvas inside it
-        createCanvas: function (view, wid, _class, oid, width, height, canvasWidth, canvasHeight) {
-            vis.binds['canvas-gauges'].init();
-            vis.binds['canvas-gauges'].registerIds(wid, oid);
-
-            var style = vis.views[view].widgets[wid] ? vis.views[view].widgets[wid].style || {} : {};
-            style.width = parseInt(style.width) || parseInt(width);
-            style.height = parseInt(style.height) || parseInt(height);
-
-            //$('#'+wid).remove ();
-            if (!document.getElementById(wid)) {
-                $('#visview_' + view).append('<div class="vis-widget ' + (_class || "") + '" id="' + wid + '" data-oid="' + oid + '" >' +
-                        '<canvas class="vis-widget" id="c' + wid + '"></canvas></div>');
-            } else {
-                $('#' + wid).addClass(_class || '');
-            }
-            $('#' + wid).css(style);
-
-            // Canvas understand no Style, so set width and height extra
-            var can = document.getElementById('c' + wid);
-            canvasWidth = parseInt(canvasWidth) || style.width;
-            canvasHeight = parseInt(canvasHeight) || style.height;
-            can.width = canvasWidth;
-            can.height = canvasHeight;
-        },
-
         gaugeDestroy: function (wid, $wid) {
             if ($wid && $wid.length) {
                 var bound = $wid.data('bound');
-                var gauge = $wid.data('gauge');
-                var bindHandler = $wid.data('bindHandler');
-                for (var b = 0; b < bound.length; b++) {
-                    vis.states.unbind(bound[b], bindHandler);
+                if (bound) {
+                    var bindHandler = $wid.data('bindHandler');
+                    for (var b = 0; b < bound.length; b++) {
+                        vis.states.unbind(bound[b], bindHandler);
+                    }
                 }
-                gauge.destroy();
+                var gauge = $wid.data('gauge');
+                if (gauge) gauge.destroy();
             }
         },
-        linearGauge: function (view, data) {
+
+        gauge: function (view, data, type) {
             var wid = data.attr('wid');
             var $wid = $('#' + wid).css('overflow', 'visible');
             if (!$wid.length) {
                 setTimeout(function () {
-                    vis.binds['canvas-gauges'].linearGauge(view, data);
+                    vis.binds['canvas-gauges'].gauge(view, data, type);
                 }, 100);
                 return;
             }
             if (!$wid.is(':visible')) {
                 setTimeout(function () {
-                    vis.binds['canvas-gauges'].linearGauge(view, data);
+                    vis.binds['canvas-gauges'].gauge(view, data, type);
                 }, 1000);
                 return;
             }
@@ -346,55 +194,58 @@
                 strokeTicks:    data.attr('strokeTicks') === 'true' || data.attr('strokeTicks') === true,
                 majorTicksInt:  parseInt(data.attr('majorTicksInt'), 10) || 4,
                 majorTicksDec:  parseInt(data.attr('majorTicksDec'), 10) || 2,
-                highlights:     undefined,
 
                 animation:      data.attr('animation') === 'true' || data.attr('animation') === true,
                 animationDuration:  parseInt(data.attr('animationDuration')) || 500,
                 animationRule:  data.attr('animationRule') || 'linear',
                 animatedValue:  data.attr('animatedValue') === 'true' || data.attr('animatedValue') === true,
-                animateOnInit:  data.attr('animateOnInit') === 'true' || data.attr('animateOnInit') === true,
-
-                borderRadius:   parseFloat($wid.css('border-radius')),
-                barStrokeWidth: parseInt(data.attr('barStrokeWidth'), 10) || 20
+                animateOnInit:  data.attr('animateOnInit') === 'true' || data.attr('animateOnInit') === true
             };
 
             if (isNaN(options.maxValue)) options.maxValue = 100;
 
-            if (data.attr('colorPlate'))             options.colorPlate = data.attr('colorPlate');
-            if (data.attr('colorPlateEnd'))          options.colorPlateEnd = data.attr('colorPlateEnd');
-            if (data.attr('colorMajorTicks'))        options.colorMajorTicks = data.attr('colorMajorTicks');
-            if (data.attr('colorMinorTicks'))        options.colorMinorTicks = data.attr('colorMinorTicks');
-            if (data.attr('colorTitle'))             options.colorTitle = data.attr('colorTitle');
-            if (data.attr('colorUnits'))             options.colorUnits = data.attr('colorUnits');
-            if (data.attr('colorNumbers'))           options.colorNumbers = data.attr('colorNumbers');
-            if (data.attr('colorNeedle'))            options.colorNeedle = data.attr('colorNeedle');
-            if (data.attr('colorNeedleEnd'))         options.colorNeedleEnd = data.attr('colorNeedleEnd');
-            if (data.attr('colorValueText'))         options.colorValueText = data.attr('colorValueText');
-            if (data.attr('colorValueTextShadow'))   options.colorValueTextShadow = data.attr('colorValueTextShadow');
-            if (data.attr('colorBorderShadow'))      options.colorBorderShadow = data.attr('colorBorderShadow');
-            if (data.attr('colorBorderOuter'))       options.colorBorderOuter = data.attr('colorBorderOuter');
-            if (data.attr('colorBorderOuterEnd'))    options.colorBorderOuterEnd = data.attr('colorBorderOuterEnd');
-            if (data.attr('colorBorderMiddle'))      options.colorBorderMiddle = data.attr('colorBorderMiddle');
-            if (data.attr('colorBorderMiddleEnd'))   options.colorBorderMiddleEnd = data.attr('colorBorderMiddleEnd');
-            if (data.attr('colorBorderInner'))       options.colorBorderInner = data.attr('colorBorderInner');
-            if (data.attr('colorBorderInnerEnd'))    options.colorBorderInnerEnd = data.attr('colorBorderInnerEnd');
-            if (data.attr('colorValueBoxRect'))      options.colorValueBoxRect = data.attr('colorValueBoxRect');
-            if (data.attr('colorValueBoxRectEnd'))   options.colorValueBoxRectEnd = data.attr('colorValueBoxRectEnd');
+            if (data.attr('colorPlate'))             options.colorPlate             = data.attr('colorPlate');
+            if (data.attr('colorPlateEnd'))          options.colorPlateEnd          = data.attr('colorPlateEnd');
+            if (data.attr('colorMajorTicks'))        options.colorMajorTicks        = data.attr('colorMajorTicks');
+            if (data.attr('colorMinorTicks'))        options.colorMinorTicks        = data.attr('colorMinorTicks');
+            if (data.attr('colorTitle'))             options.colorTitle             = data.attr('colorTitle');
+            if (data.attr('colorUnits'))             options.colorUnits             = data.attr('colorUnits');
+            if (data.attr('colorNumbers'))           options.colorNumbers           = data.attr('colorNumbers');
+            if (data.attr('colorNeedle'))            options.colorNeedle            = data.attr('colorNeedle');
+            if (data.attr('colorNeedleEnd'))         options.colorNeedleEnd         = data.attr('colorNeedleEnd');
+            if (data.attr('colorValueText'))         options.colorValueText         = data.attr('colorValueText');
+            if (data.attr('colorValueTextShadow'))   options.colorValueTextShadow   = data.attr('colorValueTextShadow');
+            if (data.attr('colorBorderShadow'))      options.colorBorderShadow      = data.attr('colorBorderShadow');
+            if (data.attr('colorBorderOuter'))       options.colorBorderOuter       = data.attr('colorBorderOuter');
+            if (data.attr('colorBorderOuterEnd'))    options.colorBorderOuterEnd    = data.attr('colorBorderOuterEnd');
+            if (data.attr('colorBorderMiddle'))      options.colorBorderMiddle      = data.attr('colorBorderMiddle');
+            if (data.attr('colorBorderMiddleEnd'))   options.colorBorderMiddleEnd   = data.attr('colorBorderMiddleEnd');
+            if (data.attr('colorBorderInner'))       options.colorBorderInner       = data.attr('colorBorderInner');
+            if (data.attr('colorBorderInnerEnd'))    options.colorBorderInnerEnd    = data.attr('colorBorderInnerEnd');
+            if (data.attr('colorValueBoxRect'))      options.colorValueBoxRect      = data.attr('colorValueBoxRect');
+            if (data.attr('colorValueBoxRectEnd'))   options.colorValueBoxRectEnd   = data.attr('colorValueBoxRectEnd');
             if (data.attr('colorValueBoxBackground'))options.colorValueBoxBackground = data.attr('colorValueBoxBackground');
-            if (data.attr('colorValueBoxShadow'))    options.colorValueBoxShadow = data.attr('colorValueBoxShadow');
-            if (data.attr('colorNeedleShadowUp'))    options.colorNeedleShadowUp = data.attr('colorNeedleShadowUp');
-            if (data.attr('colorNeedleShadowDown'))  options.colorNeedleShadowDown = data.attr('colorNeedleShadowDown');
+            if (data.attr('colorValueBoxShadow'))    options.colorValueBoxShadow    = data.attr('colorValueBoxShadow');
+            if (data.attr('colorNeedleShadowUp'))    options.colorNeedleShadowUp    = data.attr('colorNeedleShadowUp');
+            if (data.attr('colorNeedleShadowDown'))  options.colorNeedleShadowDown  = data.attr('colorNeedleShadowDown');
 
-            if (data.attr('borders') !== undefined)                                                     options.borders = data.attr('borders');
+            if (data.attr('needle')       !== undefined && data.attr('needle')       !== '')  options.needle       = data.attr('needle') === 'true' || data.attr('needle') === true;
+            if (data.attr('needleShadow') !== undefined && data.attr('needleShadow') !== '')  options.needleShadow = data.attr('needleShadow') === 'true' || data.attr('needleShadow') === true;
+            if (data.attr('needleType')   !== undefined && data.attr('needleType')   !== '')  options.needleType   = data.attr('needleType');
+            if (data.attr('needleStart')  !== undefined && data.attr('needleStart')  !== '')  options.needleStart  = parseFloat(data.attr('needleStart'));
+            if (data.attr('needleEnd')    !== undefined && data.attr('needleEnd')    !== '')  options.needleEnd    = parseFloat(data.attr('needleEnd'));
+            if (data.attr('needleWidth')  !== undefined && data.attr('needleWidth')  !== '')  options.needleWidth  = parseFloat(data.attr('needleWidth'));
+
+            if (data.attr('borders')           !== undefined && data.attr('borders')           !== '')  options.borders = data.attr('borders') === 'true' || data.attr('borders') === true;
             if (data.attr('borderOuterWidth')  !== undefined && data.attr('borderOuterWidth')  !== '')  options.borderOuterWidth  = parseFloat(data.attr('borderOuterWidth'));
             if (data.attr('borderMiddleWidth') !== undefined && data.attr('borderMiddleWidth') !== '')  options.borderMiddleWidth = parseFloat(data.attr('borderMiddleWidth'));
             if (data.attr('borderInnerWidth')  !== undefined && data.attr('borderInnerWidth')  !== '')  options.borderInnerWidth  = parseFloat(data.attr('borderInnerWidth'));
             if (data.attr('borderShadowWidth') !== undefined && data.attr('borderShadowWidth') !== '')  options.borderShadowWidth = parseFloat(data.attr('borderShadowWidth'));
 
-            if (data.attr('valueBox') !== undefined)                                                     options.valueBox = data.attr('valueBox');
-            if (data.attr('valueText')             !== undefined && data.attr('valueText') !== '')       options.valueText = data.attr('valueText');
-            if (data.attr('valueBoxStroke')        !== undefined && data.attr('valueBoxStroke') !== '')  options.valueBoxStroke  = parseFloat(data.attr('valueBoxStroke'));
-            if (data.attr('valueTextShadow')       !== undefined)                                        options.valueTextShadow = data.attr('valueTextShadow');
+            if (data.attr('valueBox')              !== undefined && data.attr('valueBox') !== '')       options.valueBox = data.attr('valueBox') === 'true' || data.attr('valueBox') === true;
+            if (data.attr('valueText')             !== undefined && data.attr('valueText') !== '')      options.valueText = data.attr('valueText');
+            if (data.attr('valueBoxStroke')        !== undefined && data.attr('valueBoxStroke') !== '') options.valueBoxStroke  = parseFloat(data.attr('valueBoxStroke'));
+            if (data.attr('valueTextShadow')       !== undefined)                                       options.valueTextShadow = data.attr('valueTextShadow');
             if (data.attr('valueBoxBorderRadius')  !== undefined && data.attr('valueBoxBorderRadius') !== '')  options.valueBoxBorderRadius  = parseFloat(data.attr('valueBoxBorderRadius'));
             if (data.attr('valueInt')              !== undefined && data.attr('valueInt') !== '')       options.valueInt = parseInt(data.attr('valueInt'), 10);
             if (data.attr('valueDec')              !== undefined && data.attr('valueDec') !== '')       options.valueDec = parseInt(data.attr('valueDec'), 10);
@@ -408,15 +259,39 @@
             if (data.attr('fontUnitsSize')   !== undefined && data.attr('fontUnitsSize')   !== '')  options.fontUnitsSize   = parseInt(data.attr('fontUnitsSize'), 10);
             if (data.attr('fontValueSize')   !== undefined && data.attr('fontValueSize')   !== '')  options.fontValueSize   = parseInt(data.attr('fontValueSize'), 10);
 
+            if (data.attr('fontNumbersStyle') !== undefined && data.attr('fontNumbersStyle')    !== '')  options.fontNumbersStyle = data.attr('fontNumbersStyle');
+            if (data.attr('fontTitleStyle') !== undefined && data.attr('fontTitleStyle')        !== '')  options.fontTitleStyle = data.attr('fontTitleStyle');
+            if (data.attr('fontUnitsStyle') !== undefined && data.attr('fontUnitsStyle')        !== '')  options.fontUnitsStyle = data.attr('fontUnitsStyle');
+            if (data.attr('fontValueStyle') !== undefined && data.attr('fontValueStyle')        !== '')  options.fontValueStyle = data.attr('fontValueStyle');
+            if (data.attr('fontNumbersWeight') !== undefined && data.attr('fontNumbersWeight')  !== '')  options.fontNumbersWeight = data.attr('fontNumbersWeight');
+            if (data.attr('fontTitleWeight') !== undefined && data.attr('fontTitleWeight')      !== '')  options.fontTitleWeight = data.attr('fontTitleWeight');
+            if (data.attr('fontUnitsWeight') !== undefined && data.attr('fontUnitsWeight')      !== '')  options.fontUnitsWeight = data.attr('fontUnitsWeight');
+            if (data.attr('fontValueWeight') !== undefined && data.attr('fontValueWeight')      !== '')  options.fontNumbers = data.attr('fontValueWeight');
+
+            var hCount = parseInt(data.attr('hCount'), 10) || 0;
+
+            if (hCount) {
+                options.highlights = [];
+                for (var u = 1; u <= hCount; u++) {
+                    if (data.attr('highlightsFrom' + u) === undefined || data.attr('highlightsFrom' + u) === '') continue;
+
+                    options.highlights.push({
+                        from:   parseFloat(data.attr('highlightsFrom' + u)) || 0,
+                        to:     parseFloat(data.attr('highlightsTo' + u)),
+                        color:  data.attr('highlightsColor' + u)
+                    });
+                }
+            } else {
+                options.highlights = false;
+            }
+
             // convert majorTicks
             var majorTicks = data.attr('majorTicks');
 
-            console.log('A')
             if (typeof majorTicks === 'string' && majorTicks.indexOf(',') !== -1) {
                 majorTicks = majorTicks.split(',');
                 for (var m = majorTicks.length - 1; m >= 0; m--) {
-                    majorTicks[m] = parseFloat(majorTicks[m].trim());
-                    if (isNaN(majorTicks[m])) majorTicks.splice(m, 1);
+                    majorTicks[m] = majorTicks[m].trim();
                 }
             } else {
                 majorTicks = parseFloat(majorTicks);
@@ -442,10 +317,14 @@
                     start += step;
                 }
             }
-            if (majorTicks[majorTicks.length - 1] !== options.maxValue) {
-                majorTicks.push(options.maxValue);
-            }
+
             options.majorTicks = majorTicks;
+
+            if (type === 'radial') {
+                vis.binds['canvas-gauges'].radialGauge(view, data, options, $wid);
+            } else {
+                vis.binds['canvas-gauges'].linearGauge(view, data, options, $wid);
+            }
 
             if (gauge) {
                 gauge.update(options);
@@ -453,7 +332,11 @@
                 options.value = options.minValue || 0;
                 $wid.html('<canvas class="vis-canvas-gauges"></canvas>');
                 options.renderTo = $wid.find('.vis-canvas-gauges')[0];
-                gauge = new LinearGauge(options);
+                if (type === 'radial') {
+                    gauge = new RadialGauge(options);
+                } else {
+                    gauge = new LinearGauge(options);
+                }
                 $wid.data('gauge', gauge);
                 gauge.draw();
 
@@ -487,10 +370,106 @@
 
             // register destroy handler
             $wid.data('destroy', vis.binds['canvas-gauges'].gaugeDestroy);
+        },
+
+        linearGauge: function (view, data, options, $wid) {
+            options.borderRadius = parseFloat($wid.css('border-radius'));
+            if (data.attr('barBeginCircle') !== undefined && data.attr('barBeginCircle')    !== '')  options.barBeginCircle = parseFloat(data.attr('barBeginCircle'));
+            if (data.attr('barWidth')       !== undefined && data.attr('barWidth')          !== '')  options.barWidth       = parseFloat(data.attr('barWidth'));
+            if (data.attr('barLength')      !== undefined && data.attr('barLength')         !== '')  options.barLength      = parseFloat(data.attr('barLength'));
+            if (data.attr('barStrokeWidth') !== undefined && data.attr('barStrokeWidth')    !== '')  options.barStrokeWidth = parseFloat(data.attr('barStrokeWidth'));
+            if (data.attr('barProgress')    !== undefined && data.attr('barProgress')       !== '')  options.barProgress    = data.attr('barProgress') === 'true' || data.attr('barProgress') === true;
+
+            if (data.attr('colorBarStroke')     !== undefined && data.attr('colorBarStroke')    !== '')  options.colorBarStroke     = data.attr('colorBarStroke');
+            if (data.attr('colorBar')           !== undefined && data.attr('colorBar')          !== '')  options.colorBar           = data.attr('colorBar');
+            if (data.attr('colorBarEnd')        !== undefined && data.attr('colorBarEnd')       !== '')  options.colorBarEnd        = data.attr('colorBarEnd');
+            if (data.attr('colorBarProgress')   !== undefined && data.attr('colorBarProgress')  !== '')  options.colorBarProgress   = data.attr('colorBarProgress');
+            if (data.attr('colorBarProgressEnd') !== undefined && data.attr('colorBarProgressEnd') !== '')  options.colorBarProgressEnd = data.attr('colorBarProgressEnd');
+
+            if (data.attr('tickSide')       !== undefined && data.attr('tickSide')      !== '')  options.tickSide       = data.attr('tickSide');
+            if (data.attr('needleSide')     !== undefined && data.attr('needleSide')    !== '')  options.needleSide     = data.attr('needleSide');
+            if (data.attr('numberSide')     !== undefined && data.attr('numberSide')    !== '')  options.numberSide     = data.attr('numberSide');
+
+            if (data.attr('ticksWidth')      !== undefined && data.attr('ticksWidth')      !== '')  options.ticksWidth      = parseFloat(data.attr('ticksWidth'));
+            if (data.attr('ticksWidthMinor') !== undefined && data.attr('ticksWidthMinor') !== '')  options.ticksWidthMinor = parseFloat(data.attr('ticksWidthMinor'));
+            if (data.attr('ticksPadding')    !== undefined && data.attr('ticksPadding')    !== '')  options.barBeginCircle  = parseFloat(data.attr('ticksPadding'));
+        },
+        radialGauge: function (view, data, options, $wid) {
+            if (data.attr('ticksAngle') !== undefined && data.attr('ticksAngle')    !== '')  options.ticksAngle = parseFloat(data.attr('ticksAngle'));
+            if (data.attr('startAngle')       !== undefined && data.attr('startAngle')          !== '')  options.startAngle       = parseFloat(data.attr('startAngle'));
+
+            if (data.attr('colorNeedleCircleOuter')     !== undefined && data.attr('colorNeedleCircleOuter')    !== '')  options.colorNeedleCircleOuter     = data.attr('colorNeedleCircleOuter');
+            if (data.attr('colorNeedleCircleOuterEnd')           !== undefined && data.attr('colorNeedleCircleOuterEnd')          !== '')  options.colorNeedleCircleOuterEnd           = data.attr('colorNeedleCircleOuterEnd');
+            if (data.attr('colorNeedleCircleInner')        !== undefined && data.attr('colorNeedleCircleInner')       !== '')  options.colorNeedleCircleInner        = data.attr('colorNeedleCircleInner');
+            if (data.attr('colorNeedleCircleInnerEnd')   !== undefined && data.attr('colorNeedleCircleInnerEnd')  !== '')  options.colorNeedleCircleInnerEnd   = data.attr('colorNeedleCircleInnerEnd');
+
+            if (data.attr('needleCircleSize')       !== undefined && data.attr('needleCircleSize')      !== '')  options.needleCircleSize       = parseFloat(data.attr('needleCircleSize'));
+            if (data.attr('needleCircleInner')    !== undefined && data.attr('needleCircleInner')       !== '')  options.needleCircleInner    = data.attr('needleCircleInner') === 'true' || data.attr('needleCircleInner') === true;
+            if (data.attr('needleCircleOuter')    !== undefined && data.attr('needleCircleOuter')       !== '')  options.needleCircleOuter    = data.attr('needleCircleOuter') === 'true' || data.attr('needleCircleOuter') === true;
+
+            if (data.attr('animationTarget')     !== undefined && data.attr('animationTarget')    !== '')  options.animationTarget     = data.attr('animationTarget');
         }
     };
+
+    if (vis.editMode) {
+        vis.binds['canvas-gauges'].changedId = function (widgetID, view, newId/*, fields*/) {
+            var obj = vis.objects[newId];
+            var changed = [];
+            var wData = vis.views[view].widgets[widgetID].data;
+            var wwData = vis.widgets[widgetID].data;
+
+            if (obj && obj.common && obj.type === 'state') {
+                if (obj.common.min !== undefined && (wData.minValue === undefined || wData.minValue === '')) {
+                    wData.minValue = obj.common.min;
+                    wwData.minValue = obj.common.min;
+                    changed.push('minValue');
+                }
+                if (obj.common.max !== undefined && (wData.maxValue === undefined || wData.maxValue === '')) {
+                    wData.maxValue = obj.common.max;
+                    wwData.maxValue = obj.common.max;
+                    changed.push('maxValue');
+                }
+                if (obj.common.unit !== undefined && (wData.units === undefined || wData.units === '')) {
+                    wData.units = obj.common.unit;
+                    wwData.units = obj.common.unit;
+                    changed.push('units');
+                }
+                if (obj.common.name && (wData.title === undefined || wData.title === '')) {
+                    wData.title = obj.common.name;
+                    wwData.title = obj.common.name;
+                    changed.push('title');
+                }
+            }
+
+            return changed.length ? changed : null;
+        };
+    }
 </script>
 
+<!--script id="tplCGlinearGauge"
+        type="text/ejs"
+        class="vis-tpl"
+        data-vis-type="temperature,number"
+        data-vis-set="canvas-gauges"
+        data-vis-name="Linear"
+        data-vis-update-style="true"
+        data-vis-prev='<img src="widgets/canvas-gauges/img/prev/Prev_cgLinear.png"></img>'
+        data-vis-attrs="oid/id/changedId;minValue;maxValue;units;title;factor[1];valueOffset[0];hCount[1]/slider,0,20,1;"
+        data-vis-attrs0="group.highlights/byindex;highlightsFrom(1-hCount);highlightsTo(1-hCount);highlightsColor(1-hCount)/color;"
+        data-vis-attrs1="group.ticks;majorTicks/slider,0,20,1;minorTicks/slider,0,20,1;strokeTicks/checkbox;majorTicksInt/slider,0,10,1;majorTicksDec/slider,0,10,1;"
+        data-vis-attrs2="group.animation;animation[true]/checkbox;animationDuration/slider,0,2000,50;animationRule/select,linear,quad,quint,cycle,bounce,elastic,dequad,dequint,decycle,debounce,delastic;animatedValue/checkbox;animateOnInit/checkbox;"
+        data-vis-attrs3="group.colorsGauge;colorPlate/color;colorPlateEnd/color;colorMajorTicks/color;colorMinorTicks/color;colorTitle/color;colorUnits/color;colorNumbers/color;colorNeedle/color;colorNeedleEnd/color;colorValueText/color;colorValueTextShadow/color;colorBorderShadow/color;colorBorderOuter/color;colorBorderOuterEnd/color;colorBorderMiddle/color;colorBorderMiddleEnd/color;colorBorderInner/color;colorBorderInnerEnd/color;colorValueBoxRect/color;colorValueBoxRectEnd/color;colorValueBoxBackground/color;colorValueBoxShadow/color;colorNeedleShadowUp/color;colorNeedleShadowDown/color;"
+        data-vis-attrs4="group.needle;needle/checkbox;needleShadow/checkbox;needleType/select,arrow,line;needleStart/slider,0,20,1;needleEnd/slider,0,20,1;needleWidth/slider,0,20,1;"
+        data-vis-attrs5="group.borders;borders[true]/checkbox;borderOuterWidth/slider,0,20,1;borderMiddleWidth/slider,0,20,1;borderInnerWidth/slider,0,20,1;borderShadowWidth/slider,0,20,1;;"
+        data-vis-attrs6="group.valueBox;valueBox[false]/checkbox;valueBoxStroke/slider,0,20,1;valueText;valueTextShadow/checkbox;valueBoxBorderRadius/slider,0,20,1;valueInt/slider,0,20,1;valueDec/slider,0,20,1;"
+        data-vis-attrs7="group.fonts;fontNumbers/fontname;fontTitle/fontname;fontUnits/fontname;fontValue/fontname;"
+        data-vis-attrs8="fontNumbersSize/slider,0,100,1;fontTitleSize/slider,0,100,1;fontUnitsSize/slider,0,100,1;fontValueSize/slider,0,100,1;"
+        data-vis-attrs9="fontNumbersStyle/nselect,normal,italic,oblique;fontTitleStyle/nselect,normal,italic,oblique;fontUnitsStyle/nselect,normal,italic,oblique;fontValueStyle/nselect,normal,italic,oblique;"
+        data-vis-attrs10="fontNumbersWeight/auto,normal,bold,bolder,lighter;fontTitleWeight/auto,normal,bold,bolder,lighter;fontUnitsWeight/auto,normal,bold,bolder,lighter;fontValueWeight/auto,normal,bold,bolder,lighter;"
+>
+    <div class="vis-widget <%== this.data.attr('class') %>" style="overflow: visible; width: 150px; height: 250px; border-radius: 10px" id="<%= this.data.attr('wid') %>"></div>
+    <% vis.binds['canvas-gauges'].gauge(this.view, this.data, 'linear'); %>
+</script-->
 <script id="tplCGlinearGauge"
         type="text/ejs"
         class="vis-tpl"
@@ -499,15 +478,108 @@
         data-vis-name="Linear"
         data-vis-update-style="true"
         data-vis-prev='<img src="widgets/canvas-gauges/img/prev/Prev_cgLinear.png"></img>'
-        data-vis-attrs="oid;minValue[0];maxValue[100];units;title;factor[1];valueOffset[0];"
-        data-vis-attrs0="group.ticks;majorTicks/slider,0,20,1;minorTicks/slider,0,20,1;strokeTicks/checkbox;majorTicksInt/slider,0,10,1;majorTicksDec/slider,0,10,1;"
-        data-vis-attrs1="group.animation;animation/checkbox;animationDuration/slider,0,2000,50;animationRule/select,linear,quad,quint,cycle,bounce,elastic,dequad,dequint,decycle,debounce,delastic;animatedValue/checkbox;animateOnInit/checkbox;"
-        data-vis-attrs2="group.colors;colorPlate/color;colorPlateEnd/color;colorMajorTicks/color;colorMinorTicks/color;colorTitle/color;colorUnits/color;colorNumbers/color;colorNeedle/color;colorNeedleEnd/color;colorValueText/color;colorValueTextShadow/color;colorBorderShadow/color;colorBorderOuter/color;colorBorderOuterEnd/color;colorBorderMiddle/color;colorBorderMiddleEnd/color;colorBorderInner/color;colorBorderInnerEnd/color;colorValueBoxRect/color;colorValueBoxRectEnd/color;colorValueBoxBackground/color;colorValueBoxShadow/color;colorNeedleShadowUp/color;colorNeedleShadowDown/color;"
-        data-vis-attrs3="group.needle;needle/checkbox;needleShadow/checkbox;needleType/select,arrow,line;needleStart/slider,0,20,1;needleEnd/slider,0,20,1;needleWidth/slider,0,20,1;"
-        data-vis-attrs4="group.borders;borders[true]/checkbox;borderOuterWidth/slider,0,20,1;borderMiddleWidth/slider,0,20,1;borderInnerWidth/slider,0,20,1;borderShadowWidth/slider,0,20,1;;"
-        data-vis-attrs5="group.valueBox;valueBox[true]/checkbox;valueBoxStroke/slider,0,20,1;valueText;valueTextShadow/checkbox;valueBoxBorderRadius/slider,0,20,1;valueInt/slider,0,20,1;valueDec/slider,0,20,1;"
-        data-vis-attrs6="group.fonts;fontNumbers/fontname;fontTitle/fontname;fontUnits/fontname;fontValue/fontname;fontNumbersSize/slider,0,100,1;fontTitleSize/slider,0,100,1;fontUnitsSize/slider,0,100,1;fontValueSize/slider,0,100,1;"
+        data-vis-attrs="oid/id/changedId;minValue;maxValue;units;title;factor[1];valueOffset[0];hCount[1]/slider,0,20,1;"
+        data-vis-attrs0="group.highlights/byindex;highlightsFrom(1-hCount);highlightsTo(1-hCount);highlightsColor(1-hCount)/color;"
+        data-vis-attrs1="group.ticks;majorTicks/slider,0,20,1;minorTicks[5]/slider,0,20,1;strokeTicks/checkbox;majorTicksInt/slider,0,10,1;majorTicksDec/slider,0,10,1;"
+        data-vis-attrs2="group.animation;animation[true]/checkbox;animationDuration/slider,0,2000,50;animationRule/select,linear,quad,quint,cycle,bounce,elastic,dequad,dequint,decycle,debounce,delastic;animatedValue/checkbox;animateOnInit/checkbox;"
+        data-vis-attrs3="group.colorsGauge;colorPlate/color;colorPlateEnd/color;colorMajorTicks/color;colorMinorTicks/color;colorTitle/color;colorUnits/color;colorNumbers/color;colorNeedle/color;colorNeedleEnd/color;colorValueText/color;colorValueTextShadow/color;colorBorderShadow/color;colorBorderOuter/color;colorBorderOuterEnd/color;colorBorderMiddle/color;colorBorderMiddleEnd/color;colorBorderInner/color;colorBorderInnerEnd/color;colorValueBoxRect/color;colorValueBoxRectEnd/color;colorValueBoxBackground/color;colorValueBoxShadow/color;colorNeedleShadowUp/color;colorNeedleShadowDown/color;"
+        data-vis-attrs4="group.needle;needle/checkbox;needleShadow/checkbox;needleType/select,arrow,line;needleStart/slider,0,100,1;needleEnd/slider,0,100,1;needleWidth/slider,0,50,1;"
+        data-vis-attrs5="group.borders;borders[true]/checkbox;borderOuterWidth/slider,0,20,1;borderMiddleWidth/slider,0,20,1;borderInnerWidth/slider,0,20,1;borderShadowWidth/slider,0,20,1;"
+        data-vis-attrs6="group.valueBox;valueBox[false]/checkbox;valueBoxStroke/slider,0,20,1;valueText;valueTextShadow/checkbox;valueBoxBorderRadius/slider,0,20,1;valueInt/slider,0,20,1;valueDec/slider,0,20,1;"
+        data-vis-attrs7="group.fonts;fontNumbers/fontname;fontTitle/fontname;fontUnits/fontname;fontValue/fontname;"
+        data-vis-attrs8="fontNumbersSize/slider,0,100,1;fontTitleSize/slider,0,100,1;fontUnitsSize/slider,0,100,1;fontValueSize/slider,0,100,1;"
+        data-vis-attrs9="fontNumbersStyle/nselect,normal,italic,oblique;fontTitleStyle/nselect,normal,italic,oblique;fontUnitsStyle/nselect,normal,italic,oblique;fontValueStyle/nselect,normal,italic,oblique;"
+        data-vis-attrs10="fontNumbersWeight/auto,normal,bold,bolder,lighter;fontTitleWeight/auto,normal,bold,bolder,lighter;fontUnitsWeight/auto,normal,bold,bolder,lighter;fontValueWeight/auto,normal,bold,bolder,lighter;"
+        data-vis-attrs11="group.gaugeBar;barBeginCircle/slider,0,360,1;barWidth/slider,0,50,1;barLength/slider,0,100,1;barStrokeWidth/slider,0,50,0;barProgress[true]/checkbox;"
+        data-vis-attrs12="group.colorsBar;colorBarStroke/color;colorBar/color;colorBarEnd/color;colorBarProgress/color;colorBarProgressEnd/color;"
+        data-vis-attrs13="group.positions;tickSide/select,both,left,right;needleSide/select,both,left,right;numberSide/select,both,left,right;"
+        data-vis-attrs14="group.ticksBar;ticksWidth/slider,0,50,1;ticksWidthMinor/slider,0,50,1;ticksPadding/slider,0,50,1;"
 >
     <div class="vis-widget <%== this.data.attr('class') %>" style="overflow: visible; width: 150px; height: 250px; border-radius: 10px" id="<%= this.data.attr('wid') %>"></div>
-    <% vis.binds['canvas-gauges'].linearGauge(this.view, this.data); %>
+    <% vis.binds['canvas-gauges'].gauge(this.view, this.data, 'linear'); %>
+</script>
+
+<script id="tplCGradialGauge"
+        type="text/ejs"
+        class="vis-tpl"
+        data-vis-type="number"
+        data-vis-set="canvas-gauges"
+        data-vis-name="Radial"
+        data-vis-update-style="true"
+        data-vis-prev='<img src="widgets/canvas-gauges/img/prev/Prev_cgRadial.png"></img>'
+        data-vis-attrs="oid/id/changedId;minValue;maxValue;units;title;factor[1];valueOffset[0];hCount[1]/slider,0,20,1;"
+        data-vis-attrs0="group.highlights/byindex;highlightsFrom(1-hCount);highlightsTo(1-hCount);highlightsColor(1-hCount)/color;"
+        data-vis-attrs1="group.ticks;majorTicks/slider,0,20,1;minorTicks[4]/slider,0,20,1;strokeTicks/checkbox;majorTicksInt/slider,0,10,1;majorTicksDec/slider,0,10,1;"
+        data-vis-attrs2="group.animation;animation[true]/checkbox;animationDuration/slider,0,2000,50;animationRule/select,linear,quad,quint,cycle,bounce,elastic,dequad,dequint,decycle,debounce,delastic;animatedValue/checkbox;animateOnInit/checkbox;animationTarget/select,needle,plate;"
+        data-vis-attrs3="group.colorsGauge;colorPlate/color;colorPlateEnd/color;colorMajorTicks/color;colorMinorTicks/color;colorTitle/color;colorUnits/color;colorNumbers/color;colorNeedle/color;colorNeedleEnd/color;colorValueText/color;colorValueTextShadow/color;colorBorderShadow/color;colorBorderOuter/color;colorBorderOuterEnd/color;colorBorderMiddle/color;colorBorderMiddleEnd/color;colorBorderInner/color;colorBorderInnerEnd/color;colorValueBoxRect/color;colorValueBoxRectEnd/color;colorValueBoxBackground/color;colorValueBoxShadow/color;colorNeedleShadowUp/color;colorNeedleShadowDown/color;"
+        data-vis-attrs4="group.needle;needle[true]/checkbox;needleShadow[true]/checkbox;needleType[select]/select,arrow,line;needleStart/slider,0,100,1;needleEnd/slider,0,100,1;needleWidth/slider,0,50,1;"
+        data-vis-attrs5="group.borders;borders[true]/checkbox;borderOuterWidth[2]/slider,0,20,1;borderMiddleWidth[2]/slider,0,20,1;borderInnerWidth[2]/slider,0,20,1;borderShadowWidth[2]/slider,0,20,1;"
+        data-vis-attrs6="group.valueBox;valueBox[false]/checkbox;valueBoxStroke/slider,0,20,1;valueText;valueTextShadow/checkbox;valueBoxBorderRadius/slider,0,20,1;valueInt/slider,0,20,1;valueDec/slider,0,20,1;"
+        data-vis-attrs7="group.fonts;fontNumbers/fontname;fontTitle/fontname;fontUnits/fontname;fontValue/fontname;"
+        data-vis-attrs8="fontNumbersSize/slider,0,100,1;fontTitleSize/slider,0,100,1;fontUnitsSize/slider,0,100,1;fontValueSize/slider,0,100,1;"
+        data-vis-attrs9="fontNumbersStyle/nselect,normal,italic,oblique;fontTitleStyle/nselect,normal,italic,oblique;fontUnitsStyle/nselect,normal,italic,oblique;fontValueStyle/nselect,normal,italic,oblique;"
+        data-vis-attrs10="fontNumbersWeight/auto,normal,bold,bolder,lighter;fontTitleWeight/auto,normal,bold,bolder,lighter;fontUnitsWeight/auto,normal,bold,bolder,lighter;fontValueWeight/auto,normal,bold,bolder,lighter;"
+        data-vis-attrs11="group.gaugeRadial;ticksAngle[270]/slider,0,360,1;startAngle[45]/slider,0,360,1;"
+        data-vis-attrs12="group.colorsRadial;colorNeedleCircleOuter/color;colorNeedleCircleOuterEnd/color;colorNeedleCircleInner/color;colorNeedleCircleInnerEnd/color;"
+        data-vis-attrs13="group.needleRadial;needleCircleSize/slider,0,200,1;needleCircleInner/checkbox;needleCircleInner/checkbox;needleCircleOuter/checkbox;"
+>
+    <div class="vis-widget <%== this.data.attr('class') %>" style="overflow: visible; width: 200px; height: 200px;" id="<%= this.data.attr('wid') %>"></div>
+    <% vis.binds['canvas-gauges'].gauge(this.view, this.data, 'radial'); %>
+</script>
+
+<script id="tplCGCompas"
+        type="text/ejs"
+        class="vis-tpl"
+        data-vis-type="number"
+        data-vis-set="canvas-gauges"
+        data-vis-name="Compas"
+        data-vis-update-style="true"
+        data-vis-prev='<img src="widgets/canvas-gauges/img/prev/Prev_cgCompas.png"></img>'
+        data-vis-attrs="oid/id/changedId;minValue[0];maxValue[360];units;title;factor[1];valueOffset[0];hCount[1]/slider,0,20,1;"
+        data-vis-attrs0="group.highlights/byindex;highlightsFrom(1-hCount);highlightsTo(1-hCount);highlightsColor(1-hCount)/color;"
+        data-vis-attrs1="group.ticks;majorTicks[N,NE,E,SE,S,SW,W,NW,N];minorTicks[22]/slider,0,20,1;strokeTicks[false]/checkbox;majorTicksInt/slider,0,10,1;majorTicksDec/slider,0,10,1;"
+        data-vis-attrs2="group.animation;animation[true]/checkbox;animationDuration[1000]/slider,0,2000,50;animationRule/select,linear,quad,quint,cycle,bounce,elastic,dequad,dequint,decycle,debounce,delastic;animatedValue/checkbox;animateOnInit/checkbox;animationTarget/select,needle,plate;"
+        data-vis-attrs3="group.colorsGauge;colorPlate[#222]/color;colorPlateEnd/color;colorMajorTicks[#f5f5f5]/color;colorMinorTicks[#ddd]/color;colorTitle/color;colorUnits/color;colorNumbers[#ccc]/color;colorNeedle[rgba(240,128,128,1)]/color;colorNeedleEnd[rgba(255,160,122,.9)]/color;colorValueText/color;colorValueTextShadow/color;colorBorderShadow/color;colorBorderOuter[#ccc]/color;colorBorderOuterEnd[#ccc]/color;colorBorderMiddle/color;colorBorderMiddleEnd/color;colorBorderInner/color;colorBorderInnerEnd/color;colorValueBoxRect/color;colorValueBoxRectEnd/color;colorValueBoxBackground/color;colorValueBoxShadow/color;colorNeedleShadowUp/color;colorNeedleShadowDown[#222]/color;"
+        data-vis-attrs4="group.needle;needle/checkbox;needleShadow/checkbox;needleType[line]/select,arrow,line;needleStart[75]/slider,0,100,1;needleEnd[99]/slider,0,100,1;needleWidth[3]/slider,0,50,1;"
+        data-vis-attrs5="group.borders;borders[true]/checkbox;borderOuterWidth[10]/slider,0,20,1;borderMiddleWidth[0]/slider,0,20,1;borderInnerWidth[0]/slider,0,20,1;borderShadowWidth[0]/slider,0,20,1;"
+        data-vis-attrs6="group.valueBox;valueBox[false]/checkbox;valueBoxStroke/slider,0,20,1;valueText;valueTextShadow[false]/checkbox;valueBoxBorderRadius/slider,0,20,1;valueInt/slider,0,20,1;valueDec/slider,0,20,1;"
+        data-vis-attrs7="group.fonts;fontNumbers/fontname;fontTitle/fontname;fontUnits/fontname;fontValue/fontname;"
+        data-vis-attrs8="fontNumbersSize/slider,0,100,1;fontTitleSize/slider,0,100,1;fontUnitsSize/slider,0,100,1;fontValueSize/slider,0,100,1;"
+        data-vis-attrs9="fontNumbersStyle/nselect,normal,italic,oblique;fontTitleStyle/nselect,normal,italic,oblique;fontUnitsStyle/nselect,normal,italic,oblique;fontValueStyle/nselect,normal,italic,oblique;"
+        data-vis-attrs10="fontNumbersWeight/auto,normal,bold,bolder,lighter;fontTitleWeight/auto,normal,bold,bolder,lighter;fontUnitsWeight/auto,normal,bold,bolder,lighter;fontValueWeight/auto,normal,bold,bolder,lighter;"
+        data-vis-attrs11="group.gaugeRadial;ticksAngle[360]/slider,0,360,1;startAngle[180]/slider,0,360,1;"
+        data-vis-attrs12="group.colorsRadial;colorNeedleCircleOuter[#ccc]/color;colorNeedleCircleOuterEnd/color;colorNeedleCircleInner/color;colorNeedleCircleInnerEnd/color;"
+        data-vis-attrs13="group.needleRadial;needleCircleSize[15]/slider,0,200,1;needleCircleInner/checkbox;needleCircleInner/checkbox;needleCircleOuter[false]/checkbox;"
+>
+    <div class="vis-widget <%== this.data.attr('class') %>" style="overflow: visible; width: 200px; height: 200px;" id="<%= this.data.attr('wid') %>"></div>
+    <% vis.binds['canvas-gauges'].gauge(this.view, this.data, 'radial'); %>
+</script>
+
+<script id="tplCGflatGauge"
+        type="text/ejs"
+        class="vis-tpl"
+        data-vis-type="temperature,number"
+        data-vis-set="canvas-gauges"
+        data-vis-name="Flat"
+        data-vis-update-style="true"
+        data-vis-prev='<img src="widgets/canvas-gauges/img/prev/Prev_cgFlat.png"></img>'
+        data-vis-attrs="oid/id/changedId;minValue;maxValue;units;title;factor[1];valueOffset[0];hCount[1]/slider,0,20,1;"
+        data-vis-attrs0="group.highlights/byindex;highlightsFrom(1-hCount);highlightsTo(1-hCount);highlightsColor(1-hCount)/color;"
+        data-vis-attrs1="group.ticks;majorTicks/slider,0,20,1;minorTicks[10]/slider,0,20,1;strokeTicks[true]/checkbox;majorTicksInt/slider,0,10,1;majorTicksDec/slider,0,10,1;"
+        data-vis-attrs2="group.animation;animation[true]/checkbox;animationDuration/slider,0,2000,50;animationRule/select,linear,quad,quint,cycle,bounce,elastic,dequad,dequint,decycle,debounce,delastic;animatedValue/checkbox;animateOnInit/checkbox;"
+        data-vis-attrs3="group.colorsGauge;colorPlate[#fff]/color;colorPlateEnd/color;colorMajorTicks/color;colorMinorTicks/color;colorTitle/color;colorUnits/color;colorNumbers/color;colorNeedle[red]/color;colorNeedleEnd[rgba(255,0,0,0.7)]/color;colorValueText/color;colorValueTextShadow/color;colorBorderShadow/color;colorBorderOuter/color;colorBorderOuterEnd/color;colorBorderMiddle/color;colorBorderMiddleEnd/color;colorBorderInner/color;colorBorderInnerEnd/color;colorValueBoxRect/color;colorValueBoxRectEnd/color;colorValueBoxBackground/color;colorValueBoxShadow/color;colorNeedleShadowUp/color;colorNeedleShadowDown/color;"
+        data-vis-attrs4="group.needle;needle/checkbox;needleShadow/checkbox;needleType[line]/select,arrow,line;needleStart/slider,0,100,1;needleEnd/slider,0,100,1;needleWidth[3]/slider,0,50,1;"
+        data-vis-attrs5="group.borders;borders[false]/checkbox;borderOuterWidth[0]/slider,0,20,1;borderMiddleWidth[0]/slider,0,20,1;borderInnerWidth[0]/slider,0,20,1;borderShadowWidth[0]/slider,0,20,1;;"
+        data-vis-attrs6="group.valueBox;valueBox[false]/checkbox;valueBoxStroke/slider,0,20,1;valueText;valueTextShadow/checkbox;valueBoxBorderRadius/slider,0,20,1;valueInt/slider,0,20,1;valueDec/slider,0,20,1;"
+        data-vis-attrs7="group.fonts;fontNumbers/fontname;fontTitle/fontname;fontUnits/fontname;fontValue/fontname;"
+        data-vis-attrs8="fontNumbersSize/slider,0,100,1;fontTitleSize/slider,0,100,1;fontUnitsSize/slider,0,100,1;fontValueSize/slider,0,100,1;"
+        data-vis-attrs9="fontNumbersStyle/nselect,normal,italic,oblique;fontTitleStyle/nselect,normal,italic,oblique;fontUnitsStyle/nselect,normal,italic,oblique;fontValueStyle/nselect,normal,italic,oblique;"
+        data-vis-attrs10="fontNumbersWeight/auto,normal,bold,bolder,lighter;fontTitleWeight/auto,normal,bold,bolder,lighter;fontUnitsWeight/auto,normal,bold,bolder,lighter;fontValueWeight/auto,normal,bold,bolder,lighter;"
+        data-vis-attrs11="group.gaugeBar;barBeginCircle[0]/slider,0,360,1;barWidth[5]/slider,0,50,1;barLength/slider,0,100,1;barStrokeWidth/slider,0,50,0;barProgress[true]/checkbox;"
+        data-vis-attrs12="group.colorsBar;colorBarStroke/color;colorBar/color;colorBarEnd/color;colorBarProgress[#db9994]/color;colorBarProgressEnd/color;"
+        data-vis-attrs13="group.positions;tickSide[left]/select,both,left,right;needleSide[left]/select,both,left,right;numberSide[left]/select,both,left,right;"
+        data-vis-attrs14="group.ticksBar;ticksWidth[50]/slider,0,50,1;ticksWidthMinor[15]/slider,0,50,1;ticksPadding/slider,0,50,1;"
+>
+    <div class="vis-widget <%== this.data.attr('class') %>" style="overflow: visible; width: 360px; height: 100px;" id="<%= this.data.attr('wid') %>"></div>
+    <% vis.binds['canvas-gauges'].gauge(this.view, this.data, 'linear'); %>
 </script>

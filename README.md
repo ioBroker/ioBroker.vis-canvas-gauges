@@ -1,6 +1,7 @@
 ![Logo](admin/vis-canvas-gauges.png)
 ioBroker.vis-canvas-gauges
 ============
+![Logo](img/logo.svg)
 
 [![NPM version](http://img.shields.io/npm/v/iobroker.vis-canvas-gauges.svg)](https://www.npmjs.com/package/iobroker.vis-canvas-gauges)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.vis-canvas-gauges.svg)](https://www.npmjs.com/package/iobroker.vis-canvas-gauges)
@@ -10,11 +11,11 @@ ioBroker.vis-canvas-gauges
 canvas-gauges - Canvas gauges for ioBroker.vis
 ![Example](img/widgets.png)
 
-Very detailed canvas library from Mikhus is used in this widget set.
-You can find description here: [https://canvas-gauges.com](https://canvas-gauges.com)
+Very detailed canvas library from Mikhus is used in this widget set. Thank you Mikhus. 
 
-And github [here](https://github.com/Mikhus/canvas-gauges)
+You can find description of used library here: [https://canvas-gauges.com](https://canvas-gauges.com)
 
+And on github [here](https://github.com/Mikhus/canvas-gauges)
 
 ## Changelog
 
