@@ -19,6 +19,9 @@ And on github [here](https://github.com/Mikhus/canvas-gauges)
 
 ## Changelog
 
+### 0.1.1 (2015-09-30)
+- (bluefox) translate english
+
 ### 0.1.0 (2015-09-26)
 - (bluefox) initial checkin
 
