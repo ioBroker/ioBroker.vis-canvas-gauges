@@ -19,10 +19,13 @@ And on github [here](https://github.com/Mikhus/canvas-gauges)
 
 ## Changelog
 
-### 0.1.2 (2015-09-30)
+### 0.1.3 (2016-10-06)
+- (bluefox) fix highlights if min not zero
+
+### 0.1.2 (2016-09-30)
 - (bluefox) translate english
 
-### 0.1.0 (2015-09-26)
+### 0.1.0 (2016-09-26)
 - (bluefox) initial checkin
 
 ## License

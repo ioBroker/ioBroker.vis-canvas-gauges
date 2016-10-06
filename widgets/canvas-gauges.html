@@ -1,7 +1,7 @@
 <!--
     ioBroker.vis-canvas-gauges
 
-    version: "0.1.0"
+    version: "0.1.3"
 
     Copyright 2016 bluefox<dogafox@gmail.com>
 
@@ -144,6 +144,13 @@
 
     //jQuery.extend(true, vis.binds, {
     vis.binds['canvas-gauges'] = {
+        version: "0.1.3",
+        showVersion: function () {
+            if (vis.binds['canvas-gauges'].version) {
+                console.log('Version vis-canvas-gauges: ' + vis.binds['canvas-gauges'].version);
+                vis.binds['canvas-gauges'].version = null;
+            }
+        },
         gaugeDestroy: function (wid, $wid) {
             if ($wid && $wid.length) {
                 var bound = $wid.data('bound');
@@ -276,8 +283,8 @@
                     if (data.attr('highlightsFrom' + u) === undefined || data.attr('highlightsFrom' + u) === '') continue;
 
                     options.highlights.push({
-                        from:   parseFloat(data.attr('highlightsFrom' + u)) || 0,
-                        to:     parseFloat(data.attr('highlightsTo' + u)),
+                        from:   (parseFloat(data.attr('highlightsFrom' + u)) || 0) - options.minValue,
+                        to:     parseFloat(data.attr('highlightsTo' + u)) - options.minValue,
                         color:  data.attr('highlightsColor' + u)
                     });
                 }
@@ -444,6 +451,8 @@
             return changed.length ? changed : null;
         };
     }
+
+    vis.binds['canvas-gauges'].showVersion();
 </script>
 
 <!--script id="tplCGlinearGauge"
