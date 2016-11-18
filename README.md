@@ -19,6 +19,9 @@ And on github [here](https://github.com/Mikhus/canvas-gauges)
 
 ## Changelog
 
+### 0.1.3 (2016-11-18)
+- (bluefox) fix destroy of widgets
+
 ### 0.1.3 (2016-10-06)
 - (bluefox) fix highlights if min not zero
 

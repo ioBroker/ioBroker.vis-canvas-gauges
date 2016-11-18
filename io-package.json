@@ -1,8 +1,13 @@
 {
     "common": {
         "name":                     "vis-canvas-gauges",
-        "version": "0.1.3",
+        "version": "0.1.4",
 		"news": {
+			"0.1.4": {
+				"en": "fix destroy of widgets",
+				"de": "Korrigiere löschen von Widgets",
+				"ru": "Исправлено удаление элементов"
+			},
 			"0.1.3": {
 				"en": "fix highlights if min not zero",
 				"de": "Korrigiere Markierung, falls min ist nicht null",

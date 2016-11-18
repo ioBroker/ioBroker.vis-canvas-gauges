@@ -161,7 +161,10 @@
                     }
                 }
                 var gauge = $wid.data('gauge');
-                if (gauge) gauge.destroy();
+                if (gauge) {
+                    gauge.destroy();
+                    $wid.data('gauge', null);
+                }
             }
         },
 
@@ -364,7 +367,7 @@
                         gauge.value = parseFloat(newVal) * gauge.options.factor + gauge.options.offset;
                     };
 
-                    // remember all ids, that binded
+                    // remember all ids, that bound
                     $wid.data('bound', [oid + '.val']);
 
                     // remember bind handler
