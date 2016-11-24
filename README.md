@@ -19,7 +19,10 @@ And on github [here](https://github.com/Mikhus/canvas-gauges)
 
 ## Changelog
 
-### 0.1.3 (2016-11-18)
+### 0.1.5 (2016-11-24)
+- (bluefox) do not scan DOM at start
+
+### 0.1.4 (2016-11-18)
 - (bluefox) fix destroy of widgets
 
 ### 0.1.3 (2016-10-06)

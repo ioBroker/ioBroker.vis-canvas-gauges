@@ -1,8 +1,13 @@
 {
     "common": {
         "name":                     "vis-canvas-gauges",
-        "version": "0.1.4",
+        "version": "0.1.5",
 		"news": {
+			"0.1.5": {
+				"en": "do not scan DOM at start",
+				"de": "Skäniere DOM nicht beim Start",
+				"ru": "Не искать элементы в DOM при старте"
+			},
 			"0.1.4": {
 				"en": "fix destroy of widgets",
 				"de": "Korrigiere löschen von Widgets",
