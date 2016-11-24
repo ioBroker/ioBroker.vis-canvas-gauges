@@ -1,7 +1,7 @@
 <!--
     ioBroker.vis-canvas-gauges
 
-    version: "0.1.3"
+    version: "0.1.5"
 
     Copyright 2016 bluefox<dogafox@gmail.com>
 
@@ -144,7 +144,7 @@
 
     //jQuery.extend(true, vis.binds, {
     vis.binds['canvas-gauges'] = {
-        version: "0.1.3",
+        version: "0.1.5",
         showVersion: function () {
             if (vis.binds['canvas-gauges'].version) {
                 console.log('Version vis-canvas-gauges: ' + vis.binds['canvas-gauges'].version);
@@ -285,11 +285,20 @@
                 for (var u = 1; u <= hCount; u++) {
                     if (data.attr('highlightsFrom' + u) === undefined || data.attr('highlightsFrom' + u) === '') continue;
 
-                    options.highlights.push({
-                        from:   (parseFloat(data.attr('highlightsFrom' + u)) || 0) - options.minValue,
-                        to:     parseFloat(data.attr('highlightsTo' + u)) - options.minValue,
-                        color:  data.attr('highlightsColor' + u)
-                    });
+                    if (type === 'radial') {
+                        options.highlights.push({
+                            from:   (parseFloat(data.attr('highlightsFrom' + u)) || 0),
+                            to:     parseFloat(data.attr('highlightsTo' + u)),
+                            color:  data.attr('highlightsColor' + u)
+                        });
+                    } else {
+                        options.highlights.push({
+                            from:   (parseFloat(data.attr('highlightsFrom' + u)) || 0) - options.minValue,
+                            to:     parseFloat(data.attr('highlightsTo' + u)) - options.minValue,
+                            color:  data.attr('highlightsColor' + u)
+                        });
+
+                    }
                 }
             } else {
                 options.highlights = false;
