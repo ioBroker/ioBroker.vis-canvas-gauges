@@ -3,7 +3,7 @@ ioBroker.vis-canvas-gauges
 ============
 ![Logo](img/logo.svg)
 
-[![NPM version](http://img.shields.io/npm/v/iobroker.vis-canvas-gauges.svg)](https://www.npmjs.com/package/iobroker.vis-canvas-gauges)
+![Number of Installations](http://iobroker.live/badges/vis-canvas-gauges-installed.svg) ![Number of Installations](http://iobroker.live/badges/vis-canvas-gauges-stable.svg) [![NPM version](http://img.shields.io/npm/v/iobroker.vis-canvas-gauges.svg)](https://www.npmjs.com/package/iobroker.vis-canvas-gauges)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.vis-canvas-gauges.svg)](https://www.npmjs.com/package/iobroker.vis-canvas-gauges)
 
 [![NPM](https://nodei.co/npm/iobroker.vis-canvas-gauges.png?downloads=true)](https://nodei.co/npm/iobroker.vis-canvas-gauges/)
