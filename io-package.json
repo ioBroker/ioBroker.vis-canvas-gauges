@@ -30,6 +30,9 @@
             }
         },
         "title": "ioBroker Visualisation - canvas-gauges style Widgets",
+        "titleLang": {
+            "en": "Canvas-gauges for ioBroker.vis",
+        },
         "desc": {
             "en": "Canvas gauges for ioBroker.vis",
             "de": "Canvas gauges für ioBroker.vis",
@@ -63,6 +66,9 @@
         "restartAdapters": [
             "vis"
         ],
+        "adminUI": {
+            "config": "none"
+        },
         "noConfig": true
     },
     "native": {},
