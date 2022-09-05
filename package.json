@@ -50,7 +50,7 @@
   ],
   "scripts": {
     "test": "node node_modules/mocha/bin/mocha --exit",
-    "test:package": "mocha test/package --exit",
+    "test:package": "mocha test/testPackageFiles --exit",
     "release": "release-script",
     "release-patch": "release-script patch --yes",
     "release-minor": "release-script minor --yes",
