@@ -31,7 +31,10 @@
   ],
   "devDependencies": {
     "mocha": "^10.0.0",
-    "chai": "^4.3.6"
+    "chai": "^4.3.6",
+    "@alcalzone/release-script": "^3.5.9",
+    "@alcalzone/release-script-plugin-iobroker": "^3.5.9",
+    "@alcalzone/release-script-plugin-license": "^3.5.9"
   },
   "bugs": {
     "url": "https://github.com/ioBroker/ioBroker.vis-canvas-gauges/issues"
@@ -46,9 +49,10 @@
   ],
   "scripts": {
     "test": "node node_modules/mocha/bin/mocha --exit",
-    "@alcalzone/release-script": "^3.5.9",
-    "@alcalzone/release-script-plugin-iobroker": "^3.5.9",
-    "@alcalzone/release-script-plugin-license": "^3.5.9"
+    "release": "release-script",
+    "release-patch": "release-script patch --yes",
+    "release-minor": "release-script minor --yes",
+    "release-major": "release-script major --yes"
   },
   "license": "MIT",
   "dependencies": {
