@@ -3,18 +3,6 @@
     "name": "vis-canvas-gauges",
     "version": "1.0.0",
     "news": {
-      "1.0.0": {
-        "en": "Added workaround for firefox canvas problem",
-        "de": "Hinzugefügt Workaround für firefox canvas Problem",
-        "ru": "Добавили workaround для firefox Canvas проблемы",
-        "pt": "Adicionado solução para problema de tela firefox",
-        "nl": "Aangepast voor vuurdoekprobleem",
-        "fr": "Ajout d'un problème de toile firefox",
-        "it": "Aggiunto workaround per firefox tela problema",
-        "es": "Función agregada para el problema de lona Firefox",
-        "pl": "Wstęp do pracy na temat problemu płonącego płótna",
-        "zh-cn": "增加防暴工作"
-      },
       "0.1.5": {
         "en": "do not scan DOM at start",
         "de": "Skäniere DOM nicht beim Start",

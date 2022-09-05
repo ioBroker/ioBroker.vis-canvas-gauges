@@ -21,7 +21,7 @@ And on GitHub [here](https://github.com/Mikhus/canvas-gauges)
 	### **WORK IN PROGRESS**
 -->
 ## Changelog
-### 1.0.0 (2022-09-05)
+### **WORK IN PROGRESS**
 * (oweitman) Added workaround for firefox canvas problem
 
 ### 0.1.5 (2016-11-24)

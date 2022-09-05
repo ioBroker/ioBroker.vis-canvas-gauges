@@ -30,6 +30,7 @@
     "canvas-gauges GUI"
   ],
   "devDependencies": {
+    "@iobroker/testing": "^4.1.0",
     "mocha": "^10.0.0",
     "chai": "^4.3.6",
     "@alcalzone/release-script": "^3.5.9",
