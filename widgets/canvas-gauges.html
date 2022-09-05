@@ -167,7 +167,38 @@
                 }
             }
         },
+        padValue: function (val,options) {
+            let dec = options.valueDec;
+            let int = options.valueInt;
+            let i = 0;
+            let s, strVal, n;
 
+            val = parseFloat(val);
+            n = (val < 0);
+            val = Math.abs(val);
+
+            if (dec > 0) {
+                strVal = val.toFixed(dec).toString().split('.');
+                s = int - strVal[0].length;
+
+                for (; i < s; ++i) {
+                    strVal[0] = '0' + strVal[0];
+                }
+
+                strVal = (n ? '-' : '') + strVal[0] + '.' + strVal[1];
+            } else {
+                strVal = Math.round(val).toString();
+                s = int - strVal.length;
+
+                for (; i < s; ++i) {
+                    strVal = '0' + strVal;
+                }
+
+                strVal = (n ? '-' : '') + strVal;
+            }
+
+            return strVal;
+        },
         gauge: function (view, data, type) {
             var wid = data.attr('wid');
             var $wid = $('#' + wid).css('overflow', 'visible');
@@ -374,6 +405,8 @@
                 } else {
                     var updateGauge = function (e, newVal /* , oldVal*/) {
                         gauge.value = parseFloat(newVal) * gauge.options.factor + gauge.options.offset;
+                        gauge.update({ valueText: vis.binds['canvas-gauges'].padValue(gauge.value,options) })
+
                     };
 
                     // remember all ids, that bound
@@ -604,3 +637,4 @@
     <div class="vis-widget <%== this.data.attr('class') %>" style="overflow: visible; width: 360px; height: 100px;" id="<%= this.data.attr('wid') %>"></div>
     <% vis.binds['canvas-gauges'].gauge(this.view, this.data, 'linear'); %>
 </script>
+ 
