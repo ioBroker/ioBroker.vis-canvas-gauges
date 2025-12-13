@@ -40,5 +40,5 @@ And on GitHub [here](https://github.com/Mikhus/canvas-gauges)
 * (bluefox) initial checkin
 
 ## License
- Copyright (c) 2016-2022 bluefox https://github.com/GermanBluefox
+ Copyright (c) 2016-2025 bluefox https://github.com/GermanBluefox
  MIT
