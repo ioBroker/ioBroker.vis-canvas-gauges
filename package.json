@@ -35,7 +35,7 @@
     "chai": "^4.3.6",
     "@alcalzone/release-script": "^3.5.9",
     "@alcalzone/release-script-plugin-iobroker": "^3.5.9",
-    "@alcalzone/release-script-plugin-license": "^3.5.9"
+    "@alcalzone/release-script-plugin-license": "^5.1.1"
   },
   "bugs": {
     "url": "https://github.com/ioBroker/ioBroker.vis-canvas-gauges/issues"
