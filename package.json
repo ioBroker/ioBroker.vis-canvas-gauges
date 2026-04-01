@@ -34,7 +34,7 @@
     "mocha": "^10.1.0",
     "chai": "^4.3.6",
     "@alcalzone/release-script": "^3.5.9",
-    "@alcalzone/release-script-plugin-iobroker": "^3.5.9",
+    "@alcalzone/release-script-plugin-iobroker": "^5.1.2",
     "@alcalzone/release-script-plugin-license": "^3.5.9"
   },
   "bugs": {
