@@ -39,6 +39,8 @@ And on GitHub [here](https://github.com/Mikhus/canvas-gauges)
 ### 0.1.0 (2016-09-26)
 * (bluefox) initial checkin
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## License
  Copyright (c) 2016-2022 bluefox https://github.com/GermanBluefox
  MIT
