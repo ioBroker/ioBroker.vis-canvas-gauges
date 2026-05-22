@@ -80,8 +80,7 @@
     ],
     "adminUI": {
       "config": "none"
-    },
-    "noConfig": true
+    }
   },
   "native": {},
   "instanceObjects": []
