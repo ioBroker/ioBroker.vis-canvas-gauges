@@ -33,6 +33,11 @@ export interface CommonRxData {
     strokeTicks: boolean;
     majorTicksInt: number | string;
     majorTicksDec: number | string;
+    exactTicks: boolean;
+    numbersMargin: number | string;
+
+    highlightsWidth: number | string;
+    highlightsLineCap: string;
 
     animation: boolean;
     animationDuration: number | string;
@@ -54,8 +59,11 @@ export interface CommonRxData {
     borderInnerWidth: number | string;
     borderShadowWidth: number | string;
 
+    followTheme: boolean;
+
     valueBox: boolean;
     valueBoxStroke: number | string;
+    valueBoxWidth: number | string;
     valueText: string;
     valueTextShadow: boolean;
     valueBoxBorderRadius: number | string;
@@ -91,6 +99,8 @@ const COLORS = [
     'colorValueBoxShadow',
     'colorNeedleShadowUp',
     'colorNeedleShadowDown',
+    // not offered by the vis-1 set, although the library has always known it
+    'colorStrokeTicks',
 ] as const;
 
 /** Fonts: the family is a string, the size a number and style/weight strings again */
@@ -107,14 +117,15 @@ const FONT_STYLES = [
     'fontValueWeight',
 ] as const;
 
-/** Only the linear gauge (and therefore the flat one) knows the bar */
-const LINEAR_NUMBERS = ['barBeginCircle', 'barWidth', 'barLength', 'barStrokeWidth'] as const;
+/** Only the linear gauge (and therefore the flat one and the progress bar) knows the bar */
+const LINEAR_NUMBERS = ['barBeginCircle', 'barWidth', 'barLength', 'barStrokeWidth', 'barShadow'] as const;
 const LINEAR_STRINGS = [
     'colorBarStroke',
     'colorBar',
     'colorBarEnd',
     'colorBarProgress',
     'colorBarProgressEnd',
+    'colorBarShadow',
     'tickSide',
     'needleSide',
     'numberSide',
@@ -145,9 +156,18 @@ function optionalNumber(options: Record<string, any>, data: CommonRxData, name: 
     }
 }
 
-/** Writes a string option only if the field is filled */
-function optionalString(options: Record<string, any>, data: CommonRxData, name: string): void {
-    if (isSet(data[name])) {
+/**
+ * Writes a string option only if the field is filled.
+ *
+ * `override` is the colour the dark theme brings along, and it wins: `getThemePalette()` only puts a colour in
+ * there once it has established that the widget carries no decision of the user about it - the field is empty or
+ * still holds the preset of the widget. Preferring the stored value here would keep the white plate of the flat
+ * gauge white in the dark theme, because that white is its preset.
+ */
+function optionalString(options: Record<string, any>, data: CommonRxData, name: string, override?: string): void {
+    if (override !== undefined) {
+        options[name] = override;
+    } else if (isSet(data[name])) {
         options[name] = data[name];
     }
 }
@@ -197,6 +217,8 @@ export function buildOptions(
     width: number,
     height: number,
     borderRadius: number,
+    /** Colours of the dark theme, see `GaugeBase.getThemePalette()`. Empty in the light theme */
+    palette: Record<string, string> = {},
 ): Record<string, any> {
     const minValue = toNumber(data.minValue, 0);
     let maxValue = toNumber(data.maxValue, NaN);
@@ -230,7 +252,14 @@ export function buildOptions(
         majorTicks: buildMajorTicks(data.majorTicks, minValue, maxValue),
     };
 
-    COLORS.forEach(name => optionalString(options, data, name));
+    COLORS.forEach(name => optionalString(options, data, name, palette[name]));
+
+    // Options the library has always had, which the vis-1 attribute set never offered
+    optionalBoolean(options, data, 'exactTicks');
+    optionalNumber(options, data, 'numbersMargin');
+    optionalNumber(options, data, 'highlightsWidth');
+    optionalString(options, data, 'highlightsLineCap');
+    optionalNumber(options, data, 'valueBoxWidth');
 
     optionalBoolean(options, data, 'needle');
     optionalBoolean(options, data, 'needleShadow');
@@ -260,13 +289,13 @@ export function buildOptions(
     if (type === 'linear') {
         options.borderRadius = borderRadius;
         LINEAR_NUMBERS.forEach(name => optionalNumber(options, data, name));
-        LINEAR_STRINGS.forEach(name => optionalString(options, data, name));
+        LINEAR_STRINGS.forEach(name => optionalString(options, data, name, palette[name]));
         // vis-1 assigned `ticksPadding` to `barBeginCircle`, so the padding moved the round end of the bar
         LINEAR_TICKS.forEach(name => optionalNumber(options, data, name));
         optionalBoolean(options, data, 'barProgress');
     } else {
         RADIAL_NUMBERS.forEach(name => optionalNumber(options, data, name));
-        RADIAL_STRINGS.forEach(name => optionalString(options, data, name));
+        RADIAL_STRINGS.forEach(name => optionalString(options, data, name, palette[name]));
         RADIAL_BOOLEANS.forEach(name => optionalBoolean(options, data, name));
         optionalString(options, data, 'animationTarget');
     }

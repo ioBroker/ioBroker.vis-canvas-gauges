@@ -21,6 +21,7 @@ const config = {
                 './CGRadialGauge': './src/CGRadialGauge',
                 './CGCompas': './src/CGCompas',
                 './CGFlatGauge': './src/CGFlatGauge',
+                './CGProgress': './src/CGProgress',
                 './translations': './src/translations.ts',
             },
             remotes: {},

@@ -29,6 +29,8 @@ Both declare the same widget ids (`tplCGlinearGauge`, `tplCGradialGauge`, `tplCG
 same attribute names, and vis-2 prefers a React widget over an EJS one. So a project made with vis keeps working
 after switching to vis-2 - the widgets simply render with the React implementation, without jQuery.
 
+The progress bar (`tplCGprogress`) was added for vis-2 and has no counterpart in the vis-1 set.
+
 The React widgets need vis-2 2.12.8 or newer. With an older vis-2 the EJS widgets are used.
 
 ## Documentation
@@ -43,6 +45,9 @@ Every widget with its settings and screenshots: [English](docs/en/README.md) | [
 ## Changelog
 ### **WORK IN PROGRESS**
 * (bluefox) All four widgets were ported to vis-2 as React widgets, without jQuery
+* (bluefox) Added the widget "Progress" - a plain bar for a battery, a tank or a humidity (vis-2 only)
+* (bluefox) The widgets follow the dark theme of vis-2: plate, scale, texts, rings and the track of the bar adapt, while the needle and the colour of the bar keep their meaning. Widgets placed before this version keep their look
+* (bluefox) Added the settings of the library that the vis-1 widgets never offered: section width and section ends of the highlights, exact ticks, numbers margin, stroke colour of the ticks, width of the value box and the shadow of the bar
 * (bluefox) The vis-2 palette shows a sharp preview and a short description for every widget
 * (bluefox) Added documentation for every vis-2 widget with screenshots (English and German)
 * (bluefox) The labels of the widget settings are translated properly now, in eleven languages

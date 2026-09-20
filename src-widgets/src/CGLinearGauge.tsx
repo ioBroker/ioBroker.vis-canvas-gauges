@@ -23,6 +23,7 @@ const DEFAULTS: Defaults = {
     factor: 1,
     valueOffset: 0,
     hCount: 1,
+    followTheme: true,
     minorTicks: 5,
     animation: true,
     borders: true,

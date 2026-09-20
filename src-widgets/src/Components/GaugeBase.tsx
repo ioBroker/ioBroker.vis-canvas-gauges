@@ -17,7 +17,7 @@ import type {
 import Generic from '../Generic';
 import GaugeCanvas from './GaugeCanvas';
 import { buildOptions, type CommonRxData, type GaugeType } from '../gaugeOptions';
-import { isSet, padValue, toInt, toNumber } from '../utils';
+import { isSet, isTrue, padValue, toInt, toNumber } from '../utils';
 import '../styles.css';
 
 /**
@@ -36,6 +36,48 @@ export interface GaugeState extends VisRxWidgetState {
     /** Rounding of the widget box - the linear gauge draws its plate with it */
     borderRadius: number;
 }
+
+/**
+ * The colours the dark theme of vis-2 puts in place of the light defaults of the library.
+ *
+ * Only what the instrument has in common with the view changes: the plate, the scale, the texts, the rings and
+ * the track of the bar. The needle keeps its colour in both themes - it is a part of the instrument itself, and a
+ * salmon needle reads just as well on a dark plate. The same holds for the progress colour of a bar, which the
+ * user picks to mean something.
+ *
+ * Every entry replaces the default of the library, never a colour the user picked; `getThemePalette()` below
+ * sorts that out.
+ */
+const DARK_PALETTE: Record<string, string> = {
+    colorPlate: '#2a2a2e',
+    colorMajorTicks: '#e0e0e0',
+    colorMinorTicks: '#9e9e9e',
+    colorTitle: '#b0b0b0',
+    colorUnits: '#b0b0b0',
+    colorNumbers: '#d8d8d8',
+    colorValueText: '#eaeaea',
+    colorValueTextShadow: 'rgba(0,0,0,0.6)',
+
+    colorBorderOuter: '#4a4a50',
+    colorBorderOuterEnd: '#35353a',
+    colorBorderMiddle: '#55555c',
+    colorBorderMiddleEnd: '#3e3e44',
+    colorBorderInner: '#2f2f34',
+    colorBorderInnerEnd: '#26262a',
+
+    colorValueBoxRect: '#6a6a72',
+    colorValueBoxRectEnd: '#4a4a50',
+    colorValueBoxBackground: '#1e1e22',
+
+    // the circle the needle of a radial gauge turns around
+    colorNeedleCircleOuter: '#55555c',
+    colorNeedleCircleOuterEnd: '#3e3e44',
+    colorNeedleCircleInner: '#4a4a50',
+    colorNeedleCircleInnerEnd: '#5a5a62',
+
+    // the empty part of the bar of a linear gauge
+    colorBar: '#3a3a40',
+};
 
 // ------------------------------------------------------------------------------- field helpers
 
@@ -158,6 +200,13 @@ export function groupCommon(defaults: Defaults): RxWidgetInfoGroup {
             { name: 'factor', label: 'factor', type: 'number', default: defaults.factor as number },
             { name: 'valueOffset', label: 'valueOffset', type: 'number', default: defaults.valueOffset as number },
             slider('hCount', 0, 20, defaults),
+            /*
+             * The width and the ends of the coloured band belong to all sections at once, so they cannot live in
+             * the indexed group below - that one repeats every field per section. They stand next to `hCount`,
+             * the other setting of the sections that is not per section, and disappear with it.
+             */
+            { ...slider('highlightsWidth', 0, 50, defaults), hidden: '!data.hCount' },
+            { ...select('highlightsLineCap', ['butt', 'round'], defaults), hidden: '!data.hCount' },
         ],
     };
 }
@@ -189,8 +238,10 @@ export function groupTicks(defaults: Defaults): RxWidgetInfoGroup {
             { ...text('majorTicks', defaults), tooltip: 'majorTicks_tooltip' },
             slider('minorTicks', 0, 50, defaults),
             check('strokeTicks', defaults),
+            { ...check('exactTicks', defaults), tooltip: 'exactTicks_tooltip' },
             slider('majorTicksInt', 0, 10, defaults),
             slider('majorTicksDec', 0, 10, defaults),
+            slider('numbersMargin', 0, 50, defaults),
         ],
     };
 }
@@ -249,6 +300,7 @@ const COLOR_FIELDS = [
     'colorPlateEnd',
     'colorMajorTicks',
     'colorMinorTicks',
+    'colorStrokeTicks',
     'colorTitle',
     'colorUnits',
     'colorNumbers',
@@ -276,7 +328,10 @@ export function groupColorsGauge(defaults: Defaults): RxWidgetInfoGroup {
     return {
         name: 'colorsGauge',
         label: 'group_colorsGauge',
-        fields: COLOR_FIELDS.map(name => color(name, defaults)),
+        fields: [
+            { ...check('followTheme', defaults), tooltip: 'followTheme_tooltip' },
+            ...COLOR_FIELDS.map(name => color(name, defaults)),
+        ],
     };
 }
 
@@ -319,6 +374,7 @@ export function groupValueBox(defaults: Defaults): RxWidgetInfoGroup {
         fields: [
             check('valueBox', defaults),
             slider('valueBoxStroke', 0, 20, defaults),
+            { ...slider('valueBoxWidth', 0, 100, defaults), tooltip: 'valueBoxWidth_tooltip' },
             { ...text('valueText', defaults), tooltip: 'valueText_tooltip' },
             check('valueTextShadow', defaults),
             slider('valueBoxBorderRadius', 0, 20, defaults),
@@ -366,6 +422,7 @@ export function groupGaugeBar(defaults: Defaults): RxWidgetInfoGroup {
             slider('barWidth', 0, 50, defaults),
             slider('barLength', 0, 100, defaults),
             slider('barStrokeWidth', 0, 50, defaults),
+            slider('barShadow', 0, 50, defaults),
             check('barProgress', defaults),
         ],
     };
@@ -381,6 +438,7 @@ export function groupColorsBar(defaults: Defaults): RxWidgetInfoGroup {
             color('colorBarEnd', defaults),
             color('colorBarProgress', defaults),
             color('colorBarProgressEnd', defaults),
+            color('colorBarShadow', defaults),
         ],
     };
 }
@@ -451,7 +509,7 @@ export function groupNeedleRadial(defaults: Defaults): RxWidgetInfoGroup {
 // ------------------------------------------------------------------------------- the widget itself
 
 /**
- * The common implementation of all four widgets.
+ * The common implementation of all five widgets.
  *
  * The widget measures itself - the gauge draws into a canvas of a fixed pixel size, so every resize in the
  * editor and every change of the view has to reach the library as a new `width`/`height`.
@@ -459,6 +517,8 @@ export function groupNeedleRadial(defaults: Defaults): RxWidgetInfoGroup {
 export default abstract class GaugeBase<RxData extends CommonRxData> extends Generic<RxData, GaugeState> {
     private readonly refRoot: React.RefObject<HTMLDivElement | null> = React.createRef();
     private resizeObserver: ResizeObserver | null = null;
+    /** The `default` of every field of this widget, collected once from `getWidgetInfo()` */
+    private fieldDefaults: Record<string, any> | null = null;
 
     constructor(props: VisRxWidgetProps) {
         super(props);
@@ -467,6 +527,65 @@ export default abstract class GaugeBase<RxData extends CommonRxData> extends Gen
 
     /** `radial` for the radial gauge and the compass, `linear` for the linear and the flat gauge */
     abstract getGaugeType(): GaugeType;
+
+    /**
+     * Colours this widget keeps in both themes, although they are in `DARK_PALETTE`.
+     *
+     * For a widget whose default is a decision rather than a light-theme colour - the transparent plate of the
+     * progress bar, for instance, which lets the view through in either theme.
+     */
+    // eslint-disable-next-line class-methods-use-this
+    protected getThemeExceptions(): string[] {
+        return [];
+    }
+
+    /** The values the vis editor writes into a freshly created widget of this type */
+    private getFieldDefaults(): Record<string, any> {
+        if (!this.fieldDefaults) {
+            const defaults: Record<string, any> = {};
+            for (const group of this.getWidgetInfo().visAttrs) {
+                // a `delimiter` field carries neither a name nor a default, hence the cast
+                for (const field of group.fields as { name?: string; default?: any }[]) {
+                    if (field.name && field.default !== undefined) {
+                        defaults[field.name] = field.default;
+                    }
+                }
+            }
+            this.fieldDefaults = defaults;
+        }
+        return this.fieldDefaults;
+    }
+
+    /**
+     * The colours of the dark theme that this widget actually takes over.
+     *
+     * A colour is only replaced while the user has not decided about it himself - the field is empty, or it still
+     * carries the default this widget was created with. That is what makes the switch useful for the flat gauge,
+     * whose white plate comes from its own preset, without ever overruling a colour someone picked.
+     *
+     * Empty in the light theme and whenever the switch is off, which is the case for every widget that was placed
+     * before this setting existed.
+     */
+    protected getThemePalette(): Record<string, string> {
+        if (this.props.context.themeType !== 'dark' || !isTrue(this.state.rxData.followTheme)) {
+            return {};
+        }
+
+        const data = this.state.rxData as Record<string, any>;
+        const defaults = this.getFieldDefaults();
+        const exceptions = this.getThemeExceptions();
+        const palette: Record<string, string> = {};
+
+        for (const [name, color] of Object.entries(DARK_PALETTE)) {
+            if (exceptions.includes(name)) {
+                continue;
+            }
+            if (!isSet(data[name]) || data[name] === defaults[name]) {
+                palette[name] = color;
+            }
+        }
+        return palette;
+    }
 
     componentDidMount(): void {
         super.componentDidMount();
@@ -508,7 +627,14 @@ export default abstract class GaugeBase<RxData extends CommonRxData> extends Gen
 
         const data = this.state.rxData as CommonRxData;
         const type = this.getGaugeType();
-        const options = buildOptions(data, type, this.state.width, this.state.height, this.state.borderRadius);
+        const options = buildOptions(
+            data,
+            type,
+            this.state.width,
+            this.state.height,
+            this.state.borderRadius,
+            this.getThemePalette(),
+        );
 
         const oid = data.oid && data.oid !== 'nothing_selected' ? data.oid : '';
         const raw = oid ? this.state.values[`${oid}.val`] : undefined;

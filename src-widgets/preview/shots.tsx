@@ -10,12 +10,18 @@
 import React, { type CSSProperties } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { CGCompas, CGFlatGauge, CGLinearGauge, CGRadialGauge } from './widgets';
+import { CGCompas, CGFlatGauge, CGLinearGauge, CGProgress, CGRadialGauge } from './widgets';
 import { defaultSize, withDefaults } from './stub';
 
 const OID = 'shots.0.value';
 
-const CONTEXT = { setValue: (): void => {}, socket: {}, themeType: 'light' };
+const CONTEXT = {
+    light: { setValue: (): void => {}, socket: {}, themeType: 'light' },
+    dark: { setValue: (): void => {}, socket: {}, themeType: 'dark' },
+};
+
+/** Theme of the current scene - the widgets read it from `context.themeType` */
+const DarkTheme = React.createContext(false);
 
 /** Acknowledged state with one value */
 function states(value: number): Record<string, any> {
@@ -30,6 +36,7 @@ function W(props: {
     width?: number;
     height?: number;
 }): React.JSX.Element {
+    const dark = React.useContext(DarkTheme);
     const size = defaultSize(props.type);
     const Type = props.type;
     const width = props.width || size.width;
@@ -38,7 +45,7 @@ function W(props: {
     return (
         <div style={{ position: 'relative', width, height, borderRadius: size.borderRadius }}>
             <Type
-                context={CONTEXT}
+                context={dark ? CONTEXT.dark : CONTEXT.light}
                 editMode={false}
                 view="view"
                 id="w1"
@@ -53,25 +60,32 @@ function W(props: {
 }
 
 /** One screenshot. The caption under a widget explains what the picture shows */
-function Shot(props: { name: string; style?: CSSProperties; children: React.ReactNode }): React.JSX.Element {
+function Shot(props: {
+    name: string;
+    dark?: boolean;
+    style?: CSSProperties;
+    children: React.ReactNode;
+}): React.JSX.Element {
     return (
-        <section
-            data-shot={props.name}
-            style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                alignItems: 'flex-end',
-                gap: 16,
-                width: 'max-content',
-                padding: 16,
-                boxSizing: 'border-box',
-                background: '#fafafa',
-                color: '#333',
-                ...props.style,
-            }}
-        >
-            {props.children}
-        </section>
+        <DarkTheme.Provider value={!!props.dark}>
+            <section
+                data-shot={props.name}
+                style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    alignItems: 'flex-end',
+                    gap: 16,
+                    width: 'max-content',
+                    padding: 16,
+                    boxSizing: 'border-box',
+                    background: props.dark ? '#23272e' : '#fafafa',
+                    color: props.dark ? '#dfe3e8' : '#333',
+                    ...props.style,
+                }}
+            >
+                {props.children}
+            </section>
+        </DarkTheme.Provider>
     );
 }
 
@@ -85,6 +99,20 @@ function Labeled(props: { text: string; children: React.ReactNode }): React.JSX.
 }
 
 const BASE = { minValue: 0, maxValue: 100, units: '%', title: 'Kitchen' };
+
+/** Three coloured sections, used by the pictures of the section settings */
+const SECTIONS = {
+    hCount: 3,
+    highlightsFrom1: 0,
+    highlightsTo1: 50,
+    highlightsColor1: '#a5d6a7',
+    highlightsFrom2: 50,
+    highlightsTo2: 80,
+    highlightsColor2: '#ffe082',
+    highlightsFrom3: 80,
+    highlightsTo3: 100,
+    highlightsColor3: '#ef9a9a',
+};
 
 function Shots(): React.JSX.Element {
     return (
@@ -110,6 +138,78 @@ function Shots(): React.JSX.Element {
                     value={64}
                     data={BASE}
                 />
+                <W
+                    type={CGProgress}
+                    value={64}
+                    data={{}}
+                />
+            </Shot>
+
+            <Shot
+                name="darktheme"
+                dark
+            >
+                <Labeled text="switch on">
+                    <W
+                        type={CGRadialGauge}
+                        value={64}
+                        data={{ ...BASE, valueBox: true }}
+                    />
+                </Labeled>
+                <Labeled text="switch off">
+                    <W
+                        type={CGRadialGauge}
+                        value={64}
+                        data={{ ...BASE, valueBox: true, followTheme: false }}
+                    />
+                </Labeled>
+                <Labeled text="flat on">
+                    <W
+                        type={CGFlatGauge}
+                        value={64}
+                        data={BASE}
+                    />
+                </Labeled>
+                <Labeled text="flat off">
+                    <W
+                        type={CGFlatGauge}
+                        value={64}
+                        data={{ ...BASE, followTheme: false }}
+                    />
+                </Labeled>
+            </Shot>
+
+            <Shot name="progress">
+                <Labeled text="default">
+                    <W
+                        type={CGProgress}
+                        value={64}
+                        data={{}}
+                    />
+                </Labeled>
+                <Labeled text="with a scale">
+                    <W
+                        type={CGProgress}
+                        value={64}
+                        data={{
+                            units: '%',
+                            colorNumbers: '#888',
+                            majorTicks: 6,
+                            minorTicks: 5,
+                            ticksWidth: 12,
+                            ticksWidthMinor: 6,
+                        }}
+                    />
+                </Labeled>
+                <Labeled text="upright, with the value box">
+                    <W
+                        type={CGProgress}
+                        value={64}
+                        data={{ colorBarProgress: '#4caf50', valueBox: true, units: '%' }}
+                        width={80}
+                        height={180}
+                    />
+                </Labeled>
             </Shot>
 
             <Shot name="linear">
@@ -220,6 +320,47 @@ function Shots(): React.JSX.Element {
                             highlightsTo2: 100,
                             highlightsColor2: '#ef9a9a',
                         }}
+                    />
+                </Labeled>
+            </Shot>
+
+            <Shot name="exactticks">
+                <Labeled text="off (evenly spread)">
+                    <W
+                        type={CGRadialGauge}
+                        value={64}
+                        data={{ ...BASE, title: '', majorTicks: '0,10,50,100' }}
+                    />
+                </Labeled>
+                <Labeled text="on (at their own value)">
+                    <W
+                        type={CGRadialGauge}
+                        value={64}
+                        data={{ ...BASE, title: '', majorTicks: '0,10,50,100', exactTicks: true }}
+                    />
+                </Labeled>
+            </Shot>
+
+            <Shot name="highlightswidth">
+                <Labeled text="width 5">
+                    <W
+                        type={CGRadialGauge}
+                        value={64}
+                        data={{ ...BASE, title: '', ...SECTIONS, highlightsWidth: 5 }}
+                    />
+                </Labeled>
+                <Labeled text="width 30">
+                    <W
+                        type={CGRadialGauge}
+                        value={64}
+                        data={{ ...BASE, title: '', ...SECTIONS, highlightsWidth: 30 }}
+                    />
+                </Labeled>
+                <Labeled text="round ends">
+                    <W
+                        type={CGRadialGauge}
+                        value={64}
+                        data={{ ...BASE, title: '', ...SECTIONS, highlightsWidth: 12, highlightsLineCap: 'round' }}
                     />
                 </Labeled>
             </Shot>

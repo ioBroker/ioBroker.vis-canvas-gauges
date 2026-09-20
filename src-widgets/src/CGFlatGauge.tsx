@@ -28,6 +28,7 @@ const DEFAULTS: Defaults = {
     factor: 1,
     valueOffset: 0,
     hCount: 1,
+    followTheme: true,
     minorTicks: 10,
     strokeTicks: true,
     animation: true,

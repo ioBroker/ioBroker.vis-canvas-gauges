@@ -1,7 +1,7 @@
 /*
  * The development page: `npm run preview` in the root.
  *
- * Shows all four widgets against a stub of `VisRxWidget`, without an ioBroker. The value lives in this page and
+ * Shows all five widgets against a stub of `VisRxWidget`, without an ioBroker. The value lives in this page and
  * is fed into every widget at once, so the needles and bars can be watched while dragging the slider - the same
  * round trip a state change takes in vis-2.
  *
@@ -16,9 +16,8 @@ import { defaultSize, withDefaults } from './stub';
 const OID = 'preview.0.value';
 
 const CONTEXT = {
-    setValue: (): void => {},
-    socket: {},
-    themeType: 'light',
+    light: { setValue: (): void => {}, socket: {}, themeType: 'light' },
+    dark: { setValue: (): void => {}, socket: {}, themeType: 'dark' },
 };
 
 /** One widget in a box of its default size */
@@ -28,13 +27,14 @@ function Widget(props: {
     data: Record<string, any>;
     value: number;
     editMode: boolean;
+    dark: boolean;
 }): React.JSX.Element {
     const size = defaultSize(props.type);
     const Type = props.type;
 
     return (
         <div style={{ margin: 12 }}>
-            <div style={{ fontSize: 12, color: '#666', marginBottom: 4 }}>{props.name}</div>
+            <div style={{ fontSize: 12, opacity: 0.7, marginBottom: 4 }}>{props.name}</div>
             <div
                 style={{
                     position: 'relative',
@@ -44,7 +44,7 @@ function Widget(props: {
                 }}
             >
                 <Type
-                    context={CONTEXT}
+                    context={props.dark ? CONTEXT.dark : CONTEXT.light}
                     editMode={props.editMode}
                     view="view"
                     id="w1"
@@ -65,6 +65,7 @@ function Widget(props: {
 function Preview(): React.JSX.Element {
     const [value, setValue] = React.useState(42);
     const [editMode, setEditMode] = React.useState(false);
+    const [dark, setDark] = React.useState(false);
     const [valueBox, setValueBox] = React.useState(true);
     const [highlights, setHighlights] = React.useState(true);
     const [running, setRunning] = React.useState(false);
@@ -117,8 +118,19 @@ function Preview(): React.JSX.Element {
         hCount: 0,
     };
 
+    // The progress bar is meant to be looked at as it comes out of the palette, so it keeps its own defaults -
+    // only the value box follows the switch above, and it is drawn anyway just while the bar stands upright
+    const progressData: Record<string, any> = { valueBox };
+
     return (
-        <div style={{ padding: 16 }}>
+        <div
+            style={{
+                padding: 16,
+                minHeight: '100vh',
+                background: dark ? '#23272e' : '#fff',
+                color: dark ? '#dfe3e8' : '#333',
+            }}
+        >
             <div style={{ display: 'flex', gap: 24, alignItems: 'center', flexWrap: 'wrap', marginBottom: 8 }}>
                 <label>
                     Value&nbsp;
@@ -163,6 +175,14 @@ function Preview(): React.JSX.Element {
                     />
                     &nbsp;edit mode
                 </label>
+                <label>
+                    <input
+                        type="checkbox"
+                        checked={dark}
+                        onChange={e => setDark(e.target.checked)}
+                    />
+                    &nbsp;dark theme
+                </label>
             </div>
 
             <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start' }}>
@@ -171,9 +191,16 @@ function Preview(): React.JSX.Element {
                         key={widget.name}
                         name={widget.name}
                         type={widget.type}
-                        data={widget.name === 'compas' ? compassData : data}
+                        data={
+                            widget.name === 'compas'
+                                ? compassData
+                                : widget.name === 'progress'
+                                  ? progressData
+                                  : data
+                        }
                         value={value}
                         editMode={editMode}
+                        dark={dark}
                     />
                 ))}
             </div>

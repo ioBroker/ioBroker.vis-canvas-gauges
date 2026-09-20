@@ -192,7 +192,8 @@
           "CGLinearGauge",
           "CGRadialGauge",
           "CGCompas",
-          "CGFlatGauge"
+          "CGFlatGauge",
+          "CGProgress"
         ]
       }
     }

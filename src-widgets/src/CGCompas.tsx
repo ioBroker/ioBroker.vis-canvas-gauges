@@ -29,6 +29,7 @@ const DEFAULTS: Defaults = {
     factor: 1,
     valueOffset: 0,
     hCount: 1,
+    followTheme: true,
     majorTicks: 'N,NE,E,SE,S,SW,W,NW,N',
     minorTicks: 22,
     strokeTicks: false,

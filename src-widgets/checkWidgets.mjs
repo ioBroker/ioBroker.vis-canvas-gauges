@@ -21,7 +21,13 @@ const PREV_PREFIX = 'widgets/vis-2-widgets-canvas-gauges/';
 const PUBLIC = path.join(HERE, 'public');
 const LEGACY_HTML = path.join(HERE, '..', 'widgets', 'canvas-gauges.html');
 
-const WIDGETS = ['CGLinearGauge', 'CGRadialGauge', 'CGCompas', 'CGFlatGauge'];
+const WIDGETS = ['CGLinearGauge', 'CGRadialGauge', 'CGCompas', 'CGFlatGauge', 'CGProgress'];
+
+/**
+ * Widgets that exist only in vis-2, so there is no vis-1 template to compare them against. Adding a widget to
+ * the vis-1 set is not worth it any more; a new one simply does not appear in vis (vis-1).
+ */
+const VIS2_ONLY = new Set(['tplCGprogress']);
 
 /**
  * Attributes the vis-1 template offered but which the React widget does not repeat.
@@ -130,12 +136,12 @@ for (const name of WIDGETS) {
         console.log(`ERROR ${prefix}: visSet is "${info.visSet}", must be "canvas-gauges"`);
         problems++;
     }
-    if (!legacyHtml.includes(`<script id="${info.id}"`)) {
+    if (!VIS2_ONLY.has(info.id) && !legacyHtml.includes(`<script id="${info.id}"`)) {
         console.log(`ERROR ${prefix}: no vis-1 template with this id - React would not replace anything`);
         problems++;
     }
 
-    const legacy = legacyAttrs(info.id) || new Set();
+    const legacy = (VIS2_ONLY.has(info.id) ? null : legacyAttrs(info.id)) || new Set();
     const own = new Set();
     const checkLabel = key => {
         if (key && !en[key]) {
@@ -178,9 +184,10 @@ for (const name of WIDGETS) {
         console.log(`ERROR ${prefix}: vis-1 attributes are gone: ${missing.join(', ')}`);
         problems += missing.length;
     }
-    const added = [...own].filter(a => !legacy.has(a));
+    const added = VIS2_ONLY.has(info.id) ? [] : [...own].filter(a => !legacy.has(a));
     console.log(
         `OK    ${prefix}: ${info.visAttrs.length} groups, ${own.size} fields` +
+            (VIS2_ONLY.has(info.id) ? ' | vis-2 only' : '') +
             (added.length ? ` | new: ${added.join(', ')}` : ''),
     );
 }

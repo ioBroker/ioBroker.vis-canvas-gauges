@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80" viewBox="0 0 120 80">
+  <!-- the progress bar: a track and the part up to the value, nothing else -->
+  <rect x="8" y="30" width="104" height="20" fill="#e0e0e0"/>
+  <rect x="8" y="30" width="67" height="20" fill="#4b8bd6"/>
+</svg>

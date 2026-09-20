@@ -1,8 +1,9 @@
 # Canvas gauges für vis-2
 
-Das Widget-Set hat vier Instrumente, die eine Zahl anzeigen: ein **lineares**, ein **radiales**, einen **Kompass**
-und einen **flachen** Balken. Diese Seite beschreibt die **vis-2**-Version. vis (vis-1) hat dieselben Widgets mit
-denselben Einstellungen; gezeichnet werden sie von derselben Bibliothek und sehen dort deshalb gleich aus.
+Das Widget-Set hat fünf Instrumente, die eine Zahl anzeigen: ein **lineares**, ein **radiales**, einen **Kompass**,
+einen **flachen** und einen **Fortschritts**-Balken. Diese Seite beschreibt die **vis-2**-Version. vis (vis-1) hat
+die ersten vier mit denselben Einstellungen; gezeichnet werden sie von derselben Bibliothek und sehen dort deshalb
+gleich aus. Den Fortschrittsbalken gibt es nur in vis-2.
 
 ![Alle Widgets](../img/overview.png)
 
@@ -15,6 +16,7 @@ denselben Einstellungen; gezeichnet werden sie von derselben Bibliothek und sehe
     - [Skalenstriche](#skalenstriche)
     - [Animation](#animation)
     - [Farben](#farben)
+    - [Dunkles Theme](#dunkles-theme)
     - [Zeiger](#zeiger)
     - [Rahmen](#rahmen)
     - [Wert-Box](#wert-box)
@@ -23,6 +25,7 @@ denselben Einstellungen; gezeichnet werden sie von derselben Bibliothek und sehe
 - [Radial](#radial---tplcgradialgauge)
 - [Kompass](#kompass---tplcgcompas)
 - [Flach](#flach---tplcgflatgauge)
+- [Fortschritt](#fortschritt---tplcgprogress)
 - [Unterschiede zu vis-1](#unterschiede-zu-vis-1)
 
 ## Allgemein
@@ -35,7 +38,8 @@ vis-1-Widgets.
 
 Mit vis-1 gebaute Projekte funktionieren ohne Änderung weiter. Beide Versionen verwenden dieselben Widget-IDs
 (`tplCGlinearGauge`, `tplCGradialGauge`, `tplCGCompas`, `tplCGflatGauge`) und dieselben Attributnamen, und vis-2
-wählt automatisch die React-Version. Alle Einstellungen werden übernommen.
+wählt automatisch die React-Version. Alle Einstellungen werden übernommen. `tplCGprogress` hat kein Gegenstück in
+vis-1 und erscheint deshalb nur im vis-2-Editor.
 
 In den Tabellen unten ist **Einstellung** die Beschriftung im vis-2-Editor und **Attribut** der Name, unter dem
 der Wert im Projekt gespeichert wird. Der Attributname ist das, was man braucht, wenn man ein Projekt als JSON
@@ -74,6 +78,10 @@ Abschnitte der Skala in einer eigenen Farbe, zum Beispiel grün bis 50, gelb bis
 | Von | `highlightsFrom1`, `highlightsFrom2`, ... | | Anfang des Abschnitts, in den Werten der Skala. Ein Abschnitt mit leerem *Von* wird übersprungen. |
 | Bis | `highlightsTo1`, ... | | Ende des Abschnitts. |
 | Farbe | `highlightsColor1`, ... | | Farbe des Abschnitts. |
+| Breite der Sektoren | `highlightsWidth` | 15 (radial), 10 (linear) | Breite des Farbbands, in Prozent der Scheibe. Das Bild unten zeigt es. |
+| Enden der Sektoren | `highlightsLineCap` | gerade | `rund` rundet die äußeren Enden des Bands ab. |
+
+![Breite der Sektoren](../img/highlightswidth.png)
 
 ### Skalenstriche
 
@@ -84,8 +92,14 @@ Abschnitte der Skala in einer eigenen Farbe, zum Beispiel grün bis 50, gelb bis
 | Hauptstriche | `majorTicks` | | Die beschrifteten Striche. Leer teilt die Skala in fünf Abschnitte. Eine Zahl, z. B. `11`, ergibt so viele Beschriftungen gleichmäßig zwischen *Min* und *Max*. Eine durch Kommas getrennte Liste, z. B. `aus,niedrig,mittel,hoch,max`, wird als Beschriftung selbst verwendet - so bekommt der Kompass seine Himmelsrichtungen. |
 | Zwischenstriche | `minorTicks` | je Widget | Anzahl der unbeschrifteten Striche zwischen zwei Hauptstrichen. |
 | Striche umranden | `strokeTicks` | je Widget | Zeichnet eine Linie entlang der Skala, die die Striche verbindet. |
+| Exakte Striche | `exactTicks` | aus | Setzt die Beschriftungen auf ihren eigenen Wert statt gleichmäßig verteilt. Wirkt nur, wenn *Hauptstriche* eine Liste von Zahlen ist. |
 | Vor Komma | `majorTicksInt` | 4 | Stellen vor dem Komma der Beschriftungen; kürzere Zahlen bekommen führende Nullen. |
 | Nach Komma | `majorTicksDec` | 2 | Stellen nach dem Komma der Beschriftungen. |
+| Abstand der Zahlen | `numbersMargin` | 1 | Abstand der Beschriftungen vom Rand der Scheibe, in Prozent. |
+
+![Exakte Striche](../img/exactticks.png)
+
+*Hauptstriche* ist in beiden Bildern `0,10,50,100`.
 
 ### Animation
 
@@ -109,6 +123,7 @@ Einstellung mit *Ende* im Namen ist die zweite Farbe eines Verlaufs.
 |---|---|---|
 | Scheibe / Scheibe Ende | `colorPlate`, `colorPlateEnd` | Das Zifferblatt. |
 | Hauptstriche / Zwischenstriche | `colorMajorTicks`, `colorMinorTicks` | Die Striche der Skala. |
+| Linie der Skala | `colorStrokeTicks` | Die Linie entlang der Skala, die *Striche umranden* zeichnet. |
 | Titel / Einheit / Zahlen | `colorTitle`, `colorUnits`, `colorNumbers` | Die drei Texte auf der Scheibe. |
 | Zeiger / Zeiger Ende | `colorNeedle`, `colorNeedleEnd` | Der Zeiger, von der Achse bis zur Spitze. |
 | Zeigerschatten oben / unten | `colorNeedleShadowUp`, `colorNeedleShadowDown` | Der Schatten, den der Zeiger auf die Scheibe wirft. |
@@ -117,11 +132,37 @@ Einstellung mit *Ende* im Namen ist die zweite Farbe eines Verlaufs.
 | Rahmenschatten | `colorBorderShadow` | Der Schatten unter dem äußeren Ring. |
 | Wert-Box Rahmen / Hintergrund / Schatten (+ *Ende*) | `colorValueBoxRect`, `colorValueBoxBackground`, `colorValueBoxShadow`, ... | Der Kasten um den Wert. |
 
+### Dunkles Theme
+
+![Dunkles Theme](../img/darktheme.png)
+
+Dieselben zwei Widgets auf einer dunklen Ansicht, mit dem Schalter ein und aus.
+
+| Einstellung | Attribut | Vorgabe | Beschreibung |
+|---|---|---|---|
+| Theme folgen | `followTheme` | ein | Im dunklen Theme von vis-2 werden Scheibe, Skala, Texte, Ringe und die Spur des Balkens dunkel. |
+
+Woraus das Instrument *besteht*, behält in beiden Themes seine Farbe: der Zeiger bleibt lachsfarben, der rote
+Zeiger des flachen Instruments bleibt rot, und der gefüllte Teil eines Balkens behält die Farbe, die man ihm
+gegeben hat. Nur was es mit der Ansicht darunter gemeinsam hat, folgt dem Theme. Eine brennende Lampe wird nachts
+schließlich auch nicht grau.
+
+**Eine selbst geänderte Farbe bleibt.** Der Schalter ersetzt eine Farbe nur, solange das Feld leer ist oder noch
+die Voreinstellung trägt, mit der das Widget angelegt wurde - etwa die weiße Scheibe des flachen Instruments.
+Sobald man selbst eine Farbe wählt, gewinnt sie in beiden Themes.
+
+**Widgets, die es vor dieser Einstellung schon gab, ändern sich nicht.** `followTheme` wird beim Anlegen eines
+Widgets in die Daten geschrieben; ein altes Projekt - und ein aus vis-1 übernommenes - behält sein Aussehen, bis
+man den Schalter einschaltet.
+
+Aus demselben Grund ändert sich am Kompass kaum etwas: Fast alle seine Farben gehören zu seiner Voreinstellung
+und sind bereits dunkel.
+
 Radial und Kompass haben zusätzlich die Farben des Kreises in der Mitte: `colorNeedleCircleOuter`,
 `colorNeedleCircleOuterEnd`, `colorNeedleCircleInner` und `colorNeedleCircleInnerEnd`.
 
-Linear und flach haben zusätzlich die Farben des Balkens: `colorBarStroke`, `colorBar`, `colorBarEnd`,
-`colorBarProgress` und `colorBarProgressEnd`.
+Linear, flach und der Fortschrittsbalken haben zusätzlich die Farben des Balkens: `colorBarStroke`, `colorBar`,
+`colorBarEnd`, `colorBarProgress`, `colorBarProgressEnd` und `colorBarShadow`.
 
 ### Zeiger
 
@@ -155,11 +196,16 @@ Der Kasten unter der Mitte, der den Wert als Zahl zeigt.
 |---|---|---|---|
 | Aktiviert | `valueBox` | aus | Zeigt den Kasten. |
 | Linienbreite | `valueBoxStroke` | | Breite des Rahmens um den Kasten. |
+| Breite der Box | `valueBoxWidth` | 0 | Feste Breite des Kastens in Prozent. `0` lässt ihn mit seinem Text wachsen. |
 | Text | `valueText` | | Fester Text statt des Wertes. Er wird nur angezeigt, solange die *Objekt-ID* keinen Wert hat, sonst gewinnt der Wert. |
 | Textschatten | `valueTextShadow` | | Die Zahl wirft einen Schatten. |
 | Eckenradius | `valueBoxBorderRadius` | | Rundung der Ecken des Kastens. |
 | Vor Komma | `valueInt` | 0 | Stellen vor dem Komma. Eine kürzere Zahl bekommt führende Nullen, z. B. `007.25` bei 3 / 2. |
 | Nach Komma | `valueDec` | 0 | Stellen nach dem Komma. `0` rundet auf eine ganze Zahl. |
+
+> **Linear, Flach und Fortschritt zeigen den Kasten nur hochkant.** Die Bibliothek zeichnet die Wert-Box eines
+> linearen Instruments nur, wenn das Widget mindestens so hoch wie breit ist. Bei einem liegenden Balken hat die
+> Einstellung keine Wirkung - dann lieber ein Text-Widget daneben setzen.
 
 ### Schriften
 
@@ -188,6 +234,7 @@ Zusätzlich zu den Einstellungen oben gibt es den Balken:
 | Breite | `barWidth` | | Breite des Balkens in Prozent der Scheibe. |
 | Länge | `barLength` | | Länge des Balkens in Prozent der Scheibe. |
 | Linienbreite | `barStrokeWidth` | | Breite der Linie um den Balken. |
+| Schatten | `barShadow` | 0 | Breite des Schattens, den der Balken wirft, in px. Seine Farbe ist `colorBarShadow`. |
 | Fortschritt | `barProgress` | ein | Füllt den Balken bis zum Wert. Aus bleibt der Balken leer und nur der Zeiger bewegt sich. |
 
 und die Lage der Skala:
@@ -276,6 +323,45 @@ Es hat die Einstellungen des [linearen](#linear---tplcglineargauge) Instruments 
 
 Stellt man die drei Seiten auf `beide`, liegt die Skala über und unter dem Balken.
 
+## Fortschritt - `tplCGprogress`
+
+![Fortschritt](../img/progress.png)
+
+Der schlichte Balken: ein lineares Instrument, reduziert auf die Spur und den Teil bis zum Wert - keine Scheibe,
+keine Ringe, kein Zeiger und keine sichtbare Skala. Genau diese Form braucht man für Akku, Zisterne, Luftfeuchte
+oder eine volllaufende Festplatte, und vom Linear-Widget aus sind es ein Dutzend Einstellungen dorthin - deshalb
+hat sie eine eigene Voreinstellung bekommen.
+
+**Dieses Widget gibt es nur in vis-2.** Im vis-1-Widget-Set hat es kein Template, eine Ansicht damit bleibt in vis
+(vis-1) also leer.
+
+Es bietet die Einstellungen des [linearen](#linear---tplcglineargauge) Instruments mit diesen Vorgaben:
+
+| Einstellung | Attribut | Vorgabe |
+|---|---|---|
+| Min / Max | `minValue` / `maxValue` | 0 / 100 |
+| Anzahl von Sektoren | `hCount` | 0 (aus) |
+| Hauptstriche / Zwischenstriche / Striche umranden | `majorTicks` / `minorTicks` / `strokeTicks` | 2 / 0 / aus |
+| Scheibe | `colorPlate` | `rgba(0,0,0,0)` - durchsichtig, die Ansicht scheint durch |
+| Zahlen | `colorNumbers` | `rgba(0,0,0,0)` - durchsichtig, damit die Skala unsichtbar ist |
+| Zeiger anzeigen | `needle` | aus |
+| Rahmen | `borders` | aus, alle vier Breiten 0 |
+| Wert-Box | `valueBox` | aus |
+| Kreis am Anfang / Breite / Länge / Linienbreite | `barBeginCircle` / `barWidth` / `barLength` / `barStrokeWidth` | 0 / 45 / 95 / 0 |
+| Balken / Fortschritt | `colorBar` / `colorBarProgress` | `#e0e0e0` / `#4b8bd6` |
+| Seite der Striche / des Zeigers / der Zahlen | `tickSide` / `needleSide` / `numberSide` | `rechts` |
+| Breite / Breite der Zwischenstriche | `ticksWidth` / `ticksWidthMinor` | 0 / 0 |
+
+Der Balken folgt der Form des Widgets: breiter als hoch liegt er, höher als breit steht er. Die Vorgabegröße ist
+300 x 60.
+
+**Die Skala zurückholen** kostet zwei Einstellungen: *Zahlen* wieder eine Farbe geben und *Breite* der
+Balkenstriche über 0 setzen (das mittlere Bild verwendet `#888`, *Hauptstriche* 6, *Zwischenstriche* 5, *Breite*
+12 und *Breite der Zwischenstriche* 6).
+
+**Die Wert-Box** erscheint nur, solange der Balken hochkant steht - siehe den Hinweis unter
+[Wert-Box](#wert-box). Das dritte Bild zeigt sie.
+
 ## Unterschiede zu vis-1
 
 Die React-Widgets zeichnen dieselben Instrumente mit derselben Bibliothek, ein migriertes Projekt sieht also
@@ -299,3 +385,8 @@ gleich aus. Ein paar Dinge wurden dabei repariert:
   eine Liste von Beschriftungen ließ sich also nur dort eingeben.
 - *Zwischenstriche* geht bis 50 statt bis 20 - der Kompass hat als Vorgabe 22, was sein eigener Schieberegler
   nicht erreichen konnte.
+
+Dazu sind ein paar Einstellungen der Bibliothek hinzugekommen, die der vis-1-Attributsatz nie angeboten hat:
+*Breite der Sektoren* und *Enden der Sektoren*, *Exakte Striche*, *Abstand der Zahlen*, *Linie der Skala*,
+*Breite der Box* der Wert-Box sowie *Schatten* und *Balkenschatten* des Balkens. Sie sind alle optional und
+ändern nichts, solange sie leer bleiben.

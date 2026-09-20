@@ -8,8 +8,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 `io-package.json` declares `"mode": "none"`, `"onlyWWW": true`, `"type": "visualization-widgets"` — there is **no
 Node.js runtime code**. Everything ships in `widgets/` and runs in the browser inside vis.
 
-The widgets draw with [canvas-gauges](https://canvas-gauges.com) (MIT, Mykhailo Stadnyk) into a `<canvas>`. There
-are four of them, and every one exists **twice**, with the same widget ids and the same attribute names:
+The widgets draw with [canvas-gauges](https://canvas-gauges.com) (MIT, Mykhailo Stadnyk) into a `<canvas>`. Four
+of them exist **twice**, with the same widget ids and the same attribute names; `CGProgress` was added for vis-2
+and has no vis-1 template:
 
 | | vis (vis-1) | vis-2 |
 |---|---|---|
@@ -60,8 +61,11 @@ that), so keep those literals in a shape the regex still matches.
 `src-widgets/checkWidgets.mjs` bundles the widget sources for node — with `canvas-gauges` aliased to a stub, since
 the real library needs a DOM — stubs `window.visRxWidget`, calls every `getWidgetInfo()` and checks the three
 migration invariants above plus that every `label`/`tooltip`/select option exists in `src-widgets/src/i18n/en.json`
-and that every `visPrev` file is in `src-widgets/public/`. It currently reports zero added and zero dropped
-attributes: the React widgets offer exactly the attribute set of the vis-1 templates.
+and that every `visPrev` file is in `src-widgets/public/`. Dropping an attribute of a vis-1 template is an error;
+adding one is only reported (`| new: …`), and the eight options the vis-1 set never offered show up there.
+
+A widget id in its `VIS2_ONLY` set is not compared against the vis-1 file at all — that is how `tplCGprogress`
+passes. Put a new vis-2-only widget in that set instead of writing an EJS template for it.
 
 It looks the templates up by `<script id="tpl…"` and not by `id="tpl…"`, because an older, shorter version of
 `tplCGlinearGauge` stands commented out above the real one and does not declare the groups of the bar.
@@ -84,17 +88,17 @@ widget means touching `vite.config.ts` (`exposes`) **and** that block.
 
 ### Widget classes
 
-The four widgets are the **same gauge with different presets**, so almost everything lives in two shared files:
+The five widgets are the **same gauge with different presets**, so almost everything lives in two shared files:
 
 - `src/gaugeOptions.ts` — `buildOptions(data, type, width, height, borderRadius)` turns the widget attributes into
   the option object of the library. It is the counterpart of `vis.binds['canvas-gauges'].gauge()` plus
   `linearGauge()` / `radialGauge()` in `widgets/canvas-gauges.html`.
 - `src/Components/GaugeBase.tsx` — the abstract widget class plus one `groupXxx(defaults)` helper per attribute
   group. Every widget composes its `visAttrs` from those helpers and its own `DEFAULTS` map, which holds exactly
-  the `name[default]` values of its vis-1 template.
+  the `name[default]` values of its vis-1 template (`CGProgress` has none, so its map is a design of its own).
 
-`CGLinearGauge`, `CGRadialGauge`, `CGCompas` and `CGFlatGauge` therefore only declare `getWidgetInfo()`, their
-`DEFAULTS` and `getGaugeType()` (`'radial'` or `'linear'`).
+`CGLinearGauge`, `CGRadialGauge`, `CGCompas`, `CGFlatGauge` and `CGProgress` therefore only declare
+`getWidgetInfo()`, their `DEFAULTS` and `getGaugeType()` (`'radial'` or `'linear'`).
 
 `src/Components/GaugeCanvas.tsx` owns the library instance. It is created once and afterwards only fed with
 `update()` and `value`; re-creating it on every render would restart the animation on every state change.
@@ -113,13 +117,29 @@ The four widgets are the **same gauge with different presets**, so almost everyt
   keeps unknown keys) but the widget applies them itself before setting `value`.
 - **Highlights are counted differently per type.** The radial gauge takes the values of the scale, the linear one
   counts from `minValue` — as in vis-1.
+- **The dark theme is a fallback palette, not a repaint.** `DARK_PALETTE` in `GaugeBase.tsx` holds the colours
+  that replace the light defaults; `getThemePalette()` puts one into the palette only while the field is empty or
+  still carries the widget's own preset (`data[name] === getFieldDefaults()[name]`), and `optionalString()` then
+  lets the palette win over the stored value - otherwise the white plate of the flat gauge, which comes from its
+  preset, would stay white. A widget overrides `getThemeExceptions()` for colours that are a decision rather than
+  a light-theme value; `CGProgress` does that for its transparent plate and its invisible numbers.
+  The needle, the bar progress and the shadows are deliberately not in the palette: they belong to the instrument.
+- **`followTheme` only reaches widgets that are created after it existed.** `Editor.addWidget` writes
+  `field.default` into the widget data when a widget is placed (`if (field.default != null)`), and nothing
+  materialises defaults later - not on render, not on load. That is what keeps migrated vis-1 projects untouched,
+  and it is also why `getFieldDefaults()` may be compared against the stored data at all.
+- **The value box of a linear gauge is drawn only while the widget stands upright.** `se()` in the library ends in
+  `barDimensions.isVertical && drawValueBox(...)`, and `isVertical` is `height >= width`. That is why `CGProgress`
+  ships with `valueBox: false` and why the documentation carries a note under *Value box*.
+- **`highlightsWidth` / `highlightsLineCap` are not per section.** They sit in the `common` group next to `hCount`
+  and are hidden with `'!data.hCount'`; the indexed `highlights` group would repeat them per section.
 - The widget **measures itself** with a `ResizeObserver` and passes `width`/`height` into the options; the canvas
   has a fixed pixel size, so every resize has to reach the library. `borderRadius` is read from the computed style
   of the root, which is what the linear gauge draws its plate with.
 
 ### `src-widgets/preview/` — the development page
 
-`npm run preview` starts a vite dev server (port 4173) with a page that renders all four widgets against a stub of
+`npm run preview` starts a vite dev server (port 4173) with a page that renders all five widgets against a stub of
 `VisRxWidget`. No ioBroker needed, and editing a widget hot-reloads it. The value lives in the page, so one slider
 drives every widget at once; a "run" checkbox walks the value up and down, which is the fastest way to see whether
 the animation is smooth.

@@ -1,8 +1,9 @@
 # Canvas gauges for vis-2
 
-The widget set has four gauges that draw a number: a **Linear** gauge, a **Radial** one, a **Compass** and a
-**Flat** bar. This page describes the **vis-2** version. vis (vis-1) has the same widgets with the same settings;
-they are drawn by the same library, so they look the same there.
+The widget set has five gauges that draw a number: a **Linear** gauge, a **Radial** one, a **Compass**, a
+**Flat** bar and a **Progress** bar. This page describes the **vis-2** version. vis (vis-1) has the first four
+with the same settings; they are drawn by the same library, so they look the same there. The progress bar exists
+only in vis-2.
 
 ![All widgets](../img/overview.png)
 
@@ -15,6 +16,7 @@ they are drawn by the same library, so they look the same there.
     - [Ticks](#ticks)
     - [Animation](#animation)
     - [Colors](#colors)
+    - [Dark theme](#dark-theme)
     - [Needle](#needle)
     - [Borders](#borders)
     - [Value box](#value-box)
@@ -23,6 +25,7 @@ they are drawn by the same library, so they look the same there.
 - [Radial](#radial---tplcgradialgauge)
 - [Compass](#compass---tplcgcompas)
 - [Flat](#flat---tplcgflatgauge)
+- [Progress](#progress---tplcgprogress)
 - [Differences to vis-1](#differences-to-vis-1)
 
 ## General
@@ -34,7 +37,8 @@ described here need **vis-2 2.12.8** or newer. Older vis-2 versions show the vis
 
 Projects made with vis-1 keep working without changes. Both versions use the same widget ids (`tplCGlinearGauge`,
 `tplCGradialGauge`, `tplCGCompas`, `tplCGflatGauge`) and the same attribute names, and vis-2 picks the React
-version automatically. All settings carry over.
+version automatically. All settings carry over. `tplCGprogress` has no vis-1 counterpart and therefore appears
+only in the vis-2 editor.
 
 In the tables below, **Setting** is the label in the vis-2 editor and **Attribute** is the name stored in the
 project. Use the attribute name when you edit a project in JSON or copy settings between widgets.
@@ -72,6 +76,10 @@ Sections of the scale in a colour of their own, for example green up to 50, yell
 | From | `highlightsFrom1`, `highlightsFrom2`, ... | | Beginning of the section, in the values of the scale. A section with an empty *From* is skipped. |
 | To | `highlightsTo1`, ... | | End of the section. |
 | Color | `highlightsColor1`, ... | | Colour of the section. |
+| Section width | `highlightsWidth` | 15 (radial), 10 (linear) | Width of the coloured band, in percent of the plate. The picture below shows it. |
+| Section ends | `highlightsLineCap` | straight | `round` rounds the outer ends of the band. |
+
+![Section width](../img/highlightswidth.png)
 
 ### Ticks
 
@@ -82,8 +90,14 @@ Sections of the scale in a colour of their own, for example green up to 50, yell
 | Major ticks | `majorTicks` | | The labelled lines. Empty divides the scale into five sections. A number, e.g. `11`, gives that many labels evenly spread from *Min* to *Max*. A list separated by commas, e.g. `off,low,mid,high,max`, is used as the labels themselves - that is how the compass gets its directions. |
 | Minor ticks | `minorTicks` | see widget | Number of unlabelled lines between two major ticks. |
 | Stroke ticks | `strokeTicks` | see widget | Draws a line along the scale that connects the ticks. |
+| Exact ticks | `exactTicks` | off | Places the labels at their own value instead of spreading them evenly. Only makes a difference when *Major ticks* is a list of numbers. |
 | Before comma | `majorTicksInt` | 4 | Digits before the comma of the tick labels; shorter numbers get leading zeros. |
 | After comma | `majorTicksDec` | 2 | Digits after the comma of the tick labels. |
+| Numbers margin | `numbersMargin` | 1 | Distance of the tick labels from the edge of the plate, in percent. |
+
+![Exact ticks](../img/exactticks.png)
+
+*Major ticks* is `0,10,50,100` in both pictures.
 
 ### Animation
 
@@ -107,6 +121,7 @@ in *end* is the second colour of a gradient.
 |---|---|---|
 | Plate / Plate end | `colorPlate`, `colorPlateEnd` | The face of the gauge. |
 | Major ticks / Minor ticks | `colorMajorTicks`, `colorMinorTicks` | The lines of the scale. |
+| Stroke of the ticks | `colorStrokeTicks` | The line along the scale that *Stroke ticks* draws. |
 | Title / Units / Numbers | `colorTitle`, `colorUnits`, `colorNumbers` | The three texts on the plate. |
 | Needle / Needle end | `colorNeedle`, `colorNeedleEnd` | The needle, from its base to its tip. |
 | Needle shadow up / down | `colorNeedleShadowUp`, `colorNeedleShadowDown` | The shadow the needle casts on the plate. |
@@ -115,11 +130,35 @@ in *end* is the second colour of a gradient.
 | Border shadow | `colorBorderShadow` | The shadow under the outer ring. |
 | Value box rect / background / shadow (+ *end*) | `colorValueBoxRect`, `colorValueBoxBackground`, `colorValueBoxShadow`, ... | The box around the value. |
 
+### Dark theme
+
+![Dark theme](../img/darktheme.png)
+
+The same two widgets on a dark view, with the switch on and off.
+
+| Setting | Attribute | Default | Description |
+|---|---|---|---|
+| Follow the theme | `followTheme` | on | In the dark theme of vis-2 the plate, the scale, the texts, the rings and the track of the bar become dark. |
+
+What the instrument is *made of* keeps its colour in both themes: the needle stays salmon, the red needle of the
+flat gauge stays red and the coloured part of a bar keeps the colour you gave it. Only what it has in common with
+the view underneath follows the theme. A lit lamp does not turn grey at night either.
+
+**A colour you changed stays as it is.** The switch only replaces a colour while the field is empty or still holds
+the preset the widget was created with - the white plate of the flat gauge, for example. As soon as you pick a
+colour yourself, it wins in both themes.
+
+**Widgets placed before this setting existed do not change.** `followTheme` is written into a widget when it is
+created, so an old project - and a project migrated from vis-1 - keeps its look until you turn the switch on.
+
+The theme is also the reason the compass barely changes: almost all of its colours are part of its preset and are
+already dark.
+
 The radial gauge and the compass add the colours of the circle in the middle: `colorNeedleCircleOuter`,
 `colorNeedleCircleOuterEnd`, `colorNeedleCircleInner` and `colorNeedleCircleInnerEnd`.
 
-The linear and the flat gauge add the colours of the bar: `colorBarStroke`, `colorBar`, `colorBarEnd`,
-`colorBarProgress` and `colorBarProgressEnd`.
+The linear gauge, the flat gauge and the progress bar add the colours of the bar: `colorBarStroke`, `colorBar`,
+`colorBarEnd`, `colorBarProgress`, `colorBarProgressEnd` and `colorBarShadow`.
 
 ### Needle
 
@@ -153,11 +192,16 @@ The box under the middle that shows the value as a number.
 |---|---|---|---|
 | Enabled | `valueBox` | off | Shows the box. |
 | Box stroke | `valueBoxStroke` | | Width of the frame around the box. |
+| Box width | `valueBoxWidth` | 0 | Fixed width of the box in percent. `0` lets it grow with its text. |
 | Text | `valueText` | | Fixed text instead of the value. It is only shown as long as *Object ID* has no value, otherwise the value wins. |
 | Text shadow | `valueTextShadow` | | The number casts a shadow. |
 | Box border radius | `valueBoxBorderRadius` | | Rounding of the corners of the box. |
 | Before comma | `valueInt` | 0 | Digits before the comma. A shorter number gets leading zeros, e.g. `007.25` with 3 / 2. |
 | After comma | `valueDec` | 0 | Digits after the comma. `0` rounds to a whole number. |
+
+> **The Linear, the Flat and the Progress widget only show the box while they stand upright.** The library draws
+> the value box of a linear gauge only when the widget is at least as tall as it is wide. On a bar lying down the
+> setting has no effect - put a text widget next to it instead.
 
 ### Fonts
 
@@ -186,6 +230,7 @@ Besides the settings above it offers the bar:
 | Width | `barWidth` | | Width of the bar in percent of the plate. |
 | Length | `barLength` | | Length of the bar in percent of the plate. |
 | Stroke width | `barStrokeWidth` | | Width of the line around the bar. |
+| Shadow | `barShadow` | 0 | Width of the shadow the bar casts, in px. Its colour is `colorBarShadow`. |
 | Progress | `barProgress` | on | Fills the bar up to the value. Off leaves an empty bar and only the needle moves. |
 
 and where the scale sits:
@@ -273,6 +318,44 @@ It has the settings of the [Linear](#linear---tplcglineargauge) gauge with other
 
 Setting the three sides to `both` puts the scale above and below the bar.
 
+## Progress - `tplCGprogress`
+
+![Progress](../img/progress.png)
+
+The plain bar: a linear gauge stripped down to the track and the part up to the value - no plate, no rings, no
+needle and no visible scale. That is the shape for a battery, a tank, a humidity or a disk that is filling up, and
+it takes a dozen settings to get there from the Linear widget, which is why it has a preset of its own.
+
+**This widget exists only in vis-2.** It has no template in the vis-1 widget set, so a view that uses it looks
+empty in vis (vis-1).
+
+It offers the settings of the [Linear](#linear---tplcglineargauge) gauge with these defaults:
+
+| Setting | Attribute | Default |
+|---|---|---|
+| Min / Max | `minValue` / `maxValue` | 0 / 100 |
+| Highlights number | `hCount` | 0 (off) |
+| Major ticks / Minor ticks / Stroke ticks | `majorTicks` / `minorTicks` / `strokeTicks` | 2 / 0 / off |
+| Plate | `colorPlate` | `rgba(0,0,0,0)` - transparent, the view shows through |
+| Numbers | `colorNumbers` | `rgba(0,0,0,0)` - transparent, so the scale is invisible |
+| Show needle | `needle` | off |
+| Borders | `borders` | off, all four widths 0 |
+| Value box | `valueBox` | off |
+| Begin circle / Width / Length / Stroke width | `barBeginCircle` / `barWidth` / `barLength` / `barStrokeWidth` | 0 / 45 / 95 / 0 |
+| Bar / Bar progress | `colorBar` / `colorBarProgress` | `#e0e0e0` / `#4b8bd6` |
+| Tick's / Needle's / Number's side | `tickSide` / `needleSide` / `numberSide` | `right` |
+| Width / Width minor | `ticksWidth` / `ticksWidthMinor` | 0 / 0 |
+
+The bar follows the shape of the widget: wider than tall it lies down, taller than wide it stands up. The default
+size is 300 x 60.
+
+**Bringing the scale back** takes two settings: give *Numbers* a colour again and set *Width* of the bar ticks to
+something above 0 (the middle picture uses `#888`, *Major ticks* 6, *Minor ticks* 5, *Width* 12 and *Width minor*
+6).
+
+**The value box** only appears while the bar stands upright - see the note under
+[Value box](#value-box). The third picture shows it.
+
 ## Differences to vis-1
 
 The React widgets draw the same gauges with the same library, so a migrated project looks the same. A few things
@@ -294,3 +377,7 @@ were repaired on the way:
 - *Major ticks* is a text field in all widgets now. In vis-1 it was a slider except in the compass, so a list of
   labels could only be entered there.
 - *Minor ticks* goes up to 50 instead of 20 - the compass has 22 by default, which its own slider could not reach.
+
+And a few settings of the library were added that the vis-1 attribute set never offered: *Section width* and
+*Section ends* of the highlights, *Exact ticks*, *Numbers margin*, *Stroke of the ticks*, *Box width* of the value
+box, and *Shadow* / *Bar shadow* of the bar. They are all optional and change nothing until they are filled in.

@@ -165,9 +165,14 @@ try {
 } finally {
     chrome.kill();
     await server.close();
-    // Chrome releases its profile only after it exited
+    // Chrome releases its profile only after it exited, and on Windows it keeps a lock on its crash reporter
+    // files for a moment longer - a profile left behind in the temp folder must not fail the run
     setTimeout(() => {
-        fs.rmSync(profile, { recursive: true, force: true });
+        try {
+            fs.rmSync(profile, { recursive: true, force: true });
+        } catch (error) {
+            console.warn(`Could not remove the temporary Chrome profile ${profile}: ${error.message}`);
+        }
         process.exit(failed ? 1 : 0);
     }, 1000);
 }
