@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80" viewBox="0 0 120 80">
+  <!-- the linear gauge: an upright plate with a border, the scale on the left and the bar filled to the value -->
+  <defs>
+    <linearGradient id="cg-linear-plate" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#e4e4e4"/>
+    </linearGradient>
+  </defs>
+  <rect x="43" y="4" width="34" height="72" rx="6" fill="#dddddd"/>
+  <rect x="45.5" y="6.5" width="29" height="67" rx="4" fill="url(#cg-linear-plate)" stroke="#bbbbbb"/>
+
+  <!-- scale -->
+  <g stroke="#444444" stroke-width="1.6">
+    <path d="M50 14h7M50 28h7M50 42h7M50 56h7M50 66h7"/>
+  </g>
+  <g stroke="#777777" stroke-width="1">
+    <path d="M52 21h5M52 35h5M52 49h5M52 61h5"/>
+  </g>
+
+  <!-- the bar: track, then the part up to the value -->
+  <rect x="63" y="12" width="7" height="56" rx="3.5" fill="#eeeeee" stroke="#cccccc"/>
+  <rect x="63" y="36" width="7" height="32" rx="3.5" fill="#db9994"/>
+  <circle cx="66.5" cy="68" r="5" fill="#db9994"/>
+
+  <!-- needle at the value -->
+  <path d="M58 36l5-2.6v5.2z" fill="#f08080"/>
+</svg>

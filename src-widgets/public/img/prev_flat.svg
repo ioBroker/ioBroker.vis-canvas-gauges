@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80" viewBox="0 0 120 80">
+  <!-- the flat gauge: a white plate without borders, scale and needle above a slim bar -->
+  <rect x="4" y="22" width="112" height="36" rx="3" fill="#ffffff"/>
+
+  <!-- numbers and scale, all on the left side of the bar -->
+  <g fill="#888888" font-family="Arial, Helvetica, sans-serif" font-size="7" text-anchor="middle">
+    <text x="12" y="34">0</text>
+    <text x="38" y="34">25</text>
+    <text x="64" y="34">50</text>
+    <text x="90" y="34">75</text>
+    <text x="110" y="34">100</text>
+  </g>
+  <g stroke="#444444" stroke-width="1.6">
+    <path d="M12 38v6M38 38v6M64 38v6M90 38v6M110 38v6"/>
+  </g>
+  <g stroke="#777777" stroke-width="1">
+    <path d="M25 40v4M51 40v4M77 40v4M103 40v4"/>
+  </g>
+
+  <!-- the bar with the progress up to about 60 % -->
+  <rect x="12" y="48" width="98" height="6" rx="3" fill="#eeeeee" stroke="#dddddd"/>
+  <rect x="12" y="48" width="59" height="6" rx="3" fill="#db9994"/>
+
+  <!-- the thin red needle at the value -->
+  <line x1="71" y1="38" x2="71" y2="54" stroke="#ff0000" stroke-width="2.4"/>
+</svg>

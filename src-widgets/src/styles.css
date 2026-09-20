@@ -1,0 +1,14 @@
+/*
+ * The widget root. The gauge draws into a canvas of exactly the measured size, so the box only has to keep it
+ * in place - and not clip it: the shadow of the plate and of the needle reach beyond the canvas, which is why
+ * the vis-1 widget set forced `overflow: visible` on the widget div as well.
+ */
+.vis-canvas-gauges {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.vis-canvas-gauges > canvas {
+    display: block;
+}

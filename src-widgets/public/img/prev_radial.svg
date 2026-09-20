@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80" viewBox="0 0 120 80">
+  <!-- the radial gauge: three rings around the plate, a scale over 270 degrees and the arrow needle -->
+  <defs>
+    <linearGradient id="cg-radial-plate" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#e2e2e2"/>
+    </linearGradient>
+  </defs>
+  <circle cx="60" cy="40" r="37" fill="none" stroke="#dddddd" stroke-width="4"/>
+  <circle cx="60" cy="40" r="33" fill="none" stroke="#bbbbbb" stroke-width="3"/>
+  <circle cx="60" cy="40" r="30" fill="url(#cg-radial-plate)" stroke="#cccccc"/>
+
+  <!-- scale from the lower left clockwise to the lower right -->
+  <path d="M38.8 61.2A30 30 0 1 1 81.2 61.2" fill="none" stroke="#888888" stroke-width="1"/>
+  <g stroke="#444444" stroke-width="2">
+    <path d="M38.8 61.2l4.2-4.2M39 40h6M45.1 19.1l4.2 4.2M60 10v6M74.9 19.1l-4.2 4.2M81 40h-6M74.9 60.9l-4.2-4.2"/>
+  </g>
+
+  <!-- needle at about 70 % of the scale -->
+  <path d="M57 42.6L81 24.7 62.4 44.8z" fill="#f08080"/>
+  <circle cx="60" cy="40" r="5" fill="#e8e8e8" stroke="#aaaaaa"/>
+  <circle cx="60" cy="40" r="2.5" fill="#b0b0b0"/>
+</svg>

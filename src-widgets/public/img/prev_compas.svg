@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80" viewBox="0 0 120 80">
+  <!-- the compass: a dark plate over the full circle, the directions as scale and a thin needle -->
+  <circle cx="60" cy="40" r="36" fill="none" stroke="#cccccc" stroke-width="6"/>
+  <circle cx="60" cy="40" r="33" fill="#222222"/>
+
+  <g stroke="#f5f5f5" stroke-width="1.6">
+    <path d="M60 9v5M83.1 16.9l-3.6 3.6M91 40h-5M83.1 63.1l-3.6-3.6M60 71v-5M36.9 63.1l3.6-3.6M29 40h5M36.9 16.9l3.6 3.6"/>
+  </g>
+  <g fill="#cccccc" font-family="Arial, Helvetica, sans-serif" font-size="8" text-anchor="middle">
+    <text x="60" y="24">N</text>
+    <text x="76" y="43">E</text>
+    <text x="60" y="61">S</text>
+    <text x="44" y="43">W</text>
+  </g>
+
+  <!-- needle at about north-east -->
+  <line x1="60" y1="40" x2="79" y2="21" stroke="#f08080" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="60" cy="40" r="4" fill="#cccccc"/>
+</svg>
