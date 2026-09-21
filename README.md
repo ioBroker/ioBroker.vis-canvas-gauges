@@ -77,6 +77,8 @@ Every widget with its settings and screenshots: [English](docs/en/README.md) | [
 ### 0.1.0 (2016-09-26)
 * (bluefox) initial checkin
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## License
  Copyright (c) 2016-2026 bluefox https://github.com/GermanBluefox
  MIT
