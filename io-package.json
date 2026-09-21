@@ -70,6 +70,7 @@
     },
     "platform": "Javascript/Node.js",
     "loglevel": "info",
+    "tier": 3,
     "icon": "vis-canvas-gauges.png",
     "enabled": true,
     "mode": "none",
