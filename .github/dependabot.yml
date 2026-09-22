@@ -10,6 +10,10 @@ updates:
     versioning-strategy: increase
 
   # the vis-2 widget set has its own dependencies (react, vite, module federation)
+    ignore:
+      - dependency-name: '@types/node'
+        update-types:
+          - 'version-update:semver-major'
   - package-ecosystem: npm
     directory: '/src-widgets'
     schedule:
