@@ -3,13 +3,13 @@ updates:
   - package-ecosystem: npm
     directory: '/'
     schedule:
-      interval: monthly
-      time: '04:00'
+      interval: 'cron'
       timezone: Europe/Berlin
+      cronjob: '40 3 22 * *'
     open-pull-requests-limit: 20
     versioning-strategy: increase
 
-  # the vis-2 widget set has its own dependencies (react, vite, module federation)
+    # the vis-2 widget set has its own dependencies (react, vite, module federation)
     ignore:
       - dependency-name: '@types/node'
         update-types:
@@ -17,16 +17,16 @@ updates:
   - package-ecosystem: npm
     directory: '/src-widgets'
     schedule:
-      interval: monthly
-      time: '04:00'
+      interval: 'cron'
       timezone: Europe/Berlin
+      cronjob: '40 3 22 * *'
     open-pull-requests-limit: 20
     versioning-strategy: increase
 
   - package-ecosystem: github-actions
     directory: '/'
     schedule:
-      interval: monthly
-      time: '04:00'
+      interval: 'cron'
       timezone: Europe/Berlin
-    open-pull-requests-limit: 5
+      cronjob: '40 3 22 * *'
+    open-pull-requests-limit: 15
