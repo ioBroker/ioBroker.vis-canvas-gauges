@@ -100,7 +100,6 @@
     "adminUI": {
       "config": "none"
     },
-    "noConfig": true,
     "tier": 3,
     "messages": [
       {
