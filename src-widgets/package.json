@@ -4,7 +4,7 @@
     "version": "1.0.1",
     "type": "module",
     "dependencies": {
-        "@iobroker/types-vis-2": "~2.20.1",
+        "@iobroker/types-vis-2": "~2.20.2",
         "@module-federation/vite": "^1.22.1",
         "@vitejs/plugin-react": "^6.1.1",
         "canvas-gauges": "^2.1.7"
